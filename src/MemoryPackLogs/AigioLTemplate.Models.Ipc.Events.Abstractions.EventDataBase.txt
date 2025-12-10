@@ -1,0 +1,3 @@
+GenerateType Object AigioLTemplate.Models.Ipc.Events.Abstractions.EventDataBase
+---
+string Event

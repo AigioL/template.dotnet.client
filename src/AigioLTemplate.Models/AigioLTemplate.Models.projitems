@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9ddda47a-b730-41e9-b76b-b316f0f9981d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AigioLTemplate.Models</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRsp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRspCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppSecrets.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DefaultJsonSerializerContext_.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Abstractions\ApiRspCodeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Events\Abstractions\EventDataBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Events\Abstractions\IEventData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Events\EventNameData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Events\Int32ArrayEventData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\InMessageUpdateValueModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\MessageReceivedKeyType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Queues\Abstractions\IQueueItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Queues\Abstractions\QueueItemBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Queues\Abstractions\QueueItemEventName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Queues\Abstractions\QueueItemStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Queues\ElevatedQueueItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipc\Queues\HotkeyQueueItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\WindowPropertyChangedEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,3 @@
+GenerateType Object AigioLTemplate.Models.UI.WindowMethodPropertyChangedEventArgs
+---
+string Name

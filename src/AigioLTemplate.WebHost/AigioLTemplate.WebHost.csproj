@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<!--<TargetFrameworks>net$(DotNet_Version);net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>-->
+		<TargetFrameworks>net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+		<DefineConstants>$(DefineConstants);PROJ_WEBHOST;USE_ASPNETCORE;USE_LOGGING_CONSOLE;MP2_GENERATE_TS;W1M3_COMPAT</DefineConstants>
+		<OutputType>Exe</OutputType>
+		<AssemblyName>aigioltemplate.webhost</AssemblyName>
+		<RootNamespace>AigioLTemplate</RootNamespace>
+	</PropertyGroup>
+
+	<!-- 👇 TypeScript -->
+	<PropertyGroup>
+		<!-- https://github.com/Cysharp/MemoryPack?tab=readme-ov-file#serialization-info -->
+		<MemoryPackGenerator_SerializationInfoOutputDirectory>$(MSBuildProjectDirectory)\..\MemoryPackLogs</MemoryPackGenerator_SerializationInfoOutputDirectory>
+		<!-- https://github.com/Cysharp/MemoryPack?tab=readme-ov-file#typescript-and-aspnet-core-formatter -->
+		<MemoryPackGenerator_TypeScriptOutputDirectory>$(MSBuildProjectDirectory)\..\NodeConsoleApp1\models\generator</MemoryPackGenerator_TypeScriptOutputDirectory>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<CompilerVisibleProperty Include="MemoryPackGenerator_SerializationInfoOutputDirectory" />
+		<CompilerVisibleProperty Include="MemoryPackGenerator_TypeScriptOutputDirectory" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Scalar.AspNetCore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- 👇 自动复制 AOT Dll 到发布目录下 -->
+		<None Condition="Exists('$(MSBuildProjectDirectory)\..\artifacts\pub\AigioLTemplate.DllExport\win-x64\Shared\aigioltemplate_ba5ac6091.dll')" Include="$(MSBuildProjectDirectory)\..\artifacts\pub\AigioLTemplate.DllExport\win-x64\Shared\aigioltemplate_ba5ac6091.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<Import Project="..\AigioLTemplate.Console.props" />
+
+</Project>

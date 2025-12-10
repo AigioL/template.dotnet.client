@@ -1,0 +1,83 @@
+<Solution>
+  <Folder Name="/1.Root/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+    <File Path="src/.editorconfig" />
+    <File Path="src/AigioLTemplate.Console.props" />
+    <File Path="src/AigioLTemplate.props" />
+    <File Path="src/AigioLTemplate.WinUI3.props" />
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Build.targets" />
+    <File Path="src/Directory.Packages.props" />
+    <File Path="src/NativeAOT.NativeLib.props" />
+    <File Path="src/TFM_NETX_ALL.props" />
+    <File Path="src/Version.props" />
+    <File Path="src/WindowsForms.props" />
+  </Folder>
+  <Folder Name="/2.Document/">
+    <File Path="doc/Code-Style.md" />
+    <File Path="doc/Compression-And-Packaging.md" />
+    <File Path="doc/Copywriting-Guide.md" />
+    <File Path="doc/CSharp.md" />
+    <File Path="doc/Entity-Framework-Core.md" />
+    <File Path="doc/Git-Commit-Message-Standard.md" />
+    <File Path="doc/Redis.md" />
+    <File Path="doc/Serializable-And-Deserialize.md" />
+  </Folder>
+  <Folder Name="/2.Libraries/">
+    <Project Path="src/AigioLTemplate.Commands/AigioLTemplate.Commands.shproj" Id="5aedd4b0-30f8-4e7e-9377-05e87143b8dd" />
+    <Project Path="src/AigioLTemplate.Constants/AigioLTemplate.Constants.shproj" Id="d4bc6a1e-ebfb-467c-9e45-e1a957844495" />
+    <Project Path="src/AigioLTemplate.DllExport/AigioLTemplate.DllExport.csproj" Id="de815a9f-af61-40be-bcc8-af1b94136a9b" />
+    <Project Path="src/AigioLTemplate.Extensions/AigioLTemplate.Extensions.shproj" Id="3484a8df-b22f-4110-a795-5ae16c598b85" />
+    <Project Path="src/AigioLTemplate.Helpers.UI/AigioLTemplate.Helpers.UI.shproj" Id="6388254d-d648-4fa1-9a0b-337d5143caac" />
+    <Project Path="src/AigioLTemplate.Hosting/AigioLTemplate.Hosting.shproj" Id="fa5aab6c-28d2-43d9-a7e3-3bb81ea078ba" />
+    <Project Path="src/AigioLTemplate.Ipc/AigioLTemplate.Ipc.shproj" Id="7b6548f3-691c-4bd4-912e-8a5fad41881a" />
+    <Project Path="src/AigioLTemplate.Models/AigioLTemplate.Models.shproj" Id="9ddda47a-b730-41e9-b76b-b316f0f9981d" />
+    <Project Path="src/AigioLTemplate.System.IOPath/AigioLTemplate.System.IOPath.shproj" Id="bf5d999a-d304-4d24-9745-e17dfe997762" />
+    <Project Path="src/AigioLTemplate.Windows.Win32/AigioLTemplate.Windows.Win32.shproj" Id="d9e5657a-b3ec-432d-9a14-65a11eca4460" />
+  </Folder>
+  <Folder Name="/2.Libraries/1.Reference/" />
+  <Folder Name="/2.Libraries/1.Reference/Common/">
+    <Project Path="ref/common/src/AigioL.Common.AspNetCore.AppCenter.Core.ClientSide/AigioL.Common.AspNetCore.AppCenter.Core.ClientSide.shproj" Id="d37b0717-d024-4dba-9330-c387df7630e4" />
+    <Project Path="ref/common/src/AigioL.Common.AspNetCore.AppCenter.Core/AigioL.Common.AspNetCore.AppCenter.Core.shproj" Id="8c072252-eabc-401a-aa84-59b8b38eda49" />
+    <Project Path="ref/common/src/AigioL.Common.AspNetCore.AppCenter.Identity.Core.ClientSide/AigioL.Common.AspNetCore.AppCenter.Identity.Core.ClientSide.shproj" Id="46fa67ca-ed96-4300-b507-a7bc5844e12d" />
+    <Project Path="ref/common/src/AigioL.Common.AspNetCore.AppCenter.Identity.Core/AigioL.Common.AspNetCore.AppCenter.Identity.Core.shproj" Id="070b8d0d-9e6a-49ea-883e-5d9cb8d470f4" />
+    <Project Path="ref/common/src/AigioL.Common.Bcl.LogInit/AigioL.Common.Bcl.LogInit.shproj" Id="78490a57-3c48-4dbb-893b-a8724b6a94a7" />
+    <Project Path="ref/common/src/AigioL.Common.Bcl/AigioL.Common.Bcl.shproj" Id="86dfc3a4-0f30-40f0-af39-6e76e46d78f1" />
+    <Project Path="ref/common/src/AigioL.Common.BuildTools/AigioL.Common.BuildTools.shproj" Id="9e2ef71b-0fb8-4b45-af29-0c294675a8a8" />
+    <Project Path="ref/common/src/AigioL.Common.Essentials/AigioL.Common.Essentials.shproj" Id="1dcaa278-148a-479e-b1d1-135476b32fdb" />
+    <Project Path="ref/common/src/AigioL.Common.JsonWebTokens.Models.Dtos/AigioL.Common.JsonWebTokens.Models.Dtos.shproj" Id="7ad8e0e7-211c-485b-a83f-bf5d35d67681" />
+    <Project Path="ref/common/src/AigioL.Common.Models.ApiRsp/AigioL.Common.Models.ApiRsp.shproj" Id="d9eafcce-1041-489d-a46b-27adc768a916" />
+    <Project Path="ref/common/src/AigioL.Common.Primitives/AigioL.Common.Primitives.shproj" Id="2fc56f9c-d2f9-4e05-b21b-179dc776d471" />
+    <Project Path="ref/common/src/AigioL.Common.ProjectUtils/AigioL.Common.ProjectUtils.shproj" Id="13633681-22dd-4032-aa2c-8c789f0a1962" />
+    <Project Path="ref/common/src/AigioL.Common.System.IOPath.FileSystem/AigioL.Common.System.IOPath.FileSystem.shproj" Id="31e68277-e8bf-4a35-bbbd-b520cc2ed821" />
+    <Project Path="ref/common/src/AigioL.Common.System.Management.NetworkInformation/AigioL.Common.System.Management.NetworkInformation.shproj" Id="44bfa2e3-668d-424e-ac76-792ffde32bd4" />
+    <Project Path="ref/common/src/AigioL.Common.System.Security.Cryptography.Aes/AigioL.Common.System.Security.Cryptography.Aes.shproj" Id="bafc6195-e7f9-4e81-b1ec-0d1de60d5fdc" />
+    <Project Path="ref/common/src/AigioL.Common.System.Security.Cryptography.HashAlgorithms/AigioL.Common.System.Security.Cryptography.HashAlgorithms.shproj" Id="49917bf7-8b4f-4bbb-a3f4-df5715759605" />
+    <Project Path="ref/common/src/AigioL.Common.System.Security.Cryptography.RSA/AigioL.Common.System.Security.Cryptography.RSA.shproj" Id="dc3e79b1-9785-421d-b9aa-62d2f77f124d" />
+    <Project Path="ref/common/src/AigioL.Common.Windows.Management.Deployment/AigioL.Common.Windows.Management.Deployment.shproj" Id="6665560f-5c89-4d1a-a2bd-7a7a9b449604" />
+    <Project Path="ref/common/src/AigioL.Common.Windows.Win32.NativeLibraryE/AigioL.Common.Windows.Win32.NativeLibraryE.shproj" Id="b1933abe-1634-4cbf-86e3-8f2a53ae1252" />
+    <Project Path="ref/common/src/AigioL.Common.Windows.Win32.RegisterHotKey/AigioL.Common.Windows.Win32.RegisterHotKey.shproj" Id="c3c8526d-e029-4c04-ba12-bed1d4a2b8a9" />
+    <Project Path="ref/common/src/AigioL.Common.Windows.Win32.SetWindowsHookEx/AigioL.Common.Windows.Win32.SetWindowsHookEx.shproj" Id="a883709a-ed64-40c9-9db5-c418da234d60" />
+    <Project Path="ref/common/src/AigioL.Common.Windows.Win32.System.ClrHosting/AigioL.Common.Windows.Win32.System.ClrHosting.shproj" Id="6e3d2f18-85d8-48b4-b636-6a5ffcfc503f" />
+  </Folder>
+  <Folder Name="/2.Libraries/1.Reference/ServerSdk/">
+    <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.Constants/AigioLTemplate.ServerSdk.Constants.shproj" Id="b17289bc-dc20-4bc0-90c1-1554d0c55604" />
+    <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.Models/AigioLTemplate.ServerSdk.Models.shproj" Id="fda9b06f-dae8-4ca3-864a-fa8088dcb273" />
+    <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.Services/AigioLTemplate.ServerSdk.Services.shproj" Id="4ac60550-6471-4721-b4d0-b83ba4843c28" />
+  </Folder>
+  <Folder Name="/3.EntryPoint/">
+    <Project Path="src/AigioLTemplate.Mobile/AigioLTemplate.Mobile.csproj" Id="9c4d7197-34b4-4ab4-9816-3291fcd286ca">
+      <Deploy Solution="Debug|*" />
+    </Project>
+    <Project Path="src/AigioLTemplate.WebHost/AigioLTemplate.WebHost.csproj" Id="eba0ddc6-7bac-49ad-82f7-5ef8ae6609f2" />
+    <Project Path="src/AigioLTemplate/AigioLTemplate.csproj" Id="33d6a4f0-33ef-4173-aea1-3892d99dc0d7" />
+  </Folder>
+  <Folder Name="/4.Tools/">
+    <Project Path="src/AigioLTemplate.BuildTools/AigioLTemplate.BuildTools.csproj" Id="067f2e23-1a39-4452-a253-706f1e8dd019" />
+    <Project Path="src/AigioLTemplate.DllExport.ConsoleTest/AigioLTemplate.DllExport.ConsoleTest.csproj" Id="5034e0cf-5fb2-47b6-ac32-d03a3cc8831d" />
+  </Folder>
+  <Folder Name="/5.UnitTest/">
+    <Project Path="src/AigioLTemplate.UnitTest/AigioLTemplate.UnitTest.csproj" Id="54d5f294-0e2d-4db9-8e72-c32ca4c72d53" />
+  </Folder>
+</Solution>

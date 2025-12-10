@@ -1,0 +1,6 @@
+GenerateType VersionTolerant AigioL.Common.Models.ApiRsp
+---
+uint Code
+string Message
+string Url
+string TraceId

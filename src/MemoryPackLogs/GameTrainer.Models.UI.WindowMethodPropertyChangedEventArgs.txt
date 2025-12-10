@@ -1,0 +1,3 @@
+GenerateType Object GameTrainer.Models.UI.WindowMethodPropertyChangedEventArgs
+---
+string Name

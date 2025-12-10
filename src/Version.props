@@ -1,9 +1,15 @@
 <Project>
 
+	<!-- 👇 当前项目的版本号配置 -->
+	<PropertyGroup>
+		<!--(yyyy-2024||A).B.(yyyy-2024)MMdd.1hhC-->
+		<Version>1.0.11209.11957</Version>
+	</PropertyGroup>
+
 	<!-- 👇 当前项目依赖的版本号配置 -->
 	<PropertyGroup>
 		<!--👇 首选 .NET 版本号 -->
-		<DotNet_Version>9.0</DotNet_Version>
+		<DotNet_Version>10.0</DotNet_Version>
 		<!--👇 Win10/11 SDK 版本，值不可小于 10.0.x -->
 		<WinSDK_Version>10.0.19041.0</WinSDK_Version>
 	</PropertyGroup>
@@ -37,6 +43,12 @@
 			<PropertyGroup>
 				<!--👇 https://github.com/dotnet/maui/blob/main/src/Templates/src/templates/maui-mobile/MauiApp.1.csproj#L43-->
 				<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+			<PropertyGroup>
+				<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+				<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 			</PropertyGroup>
 		</When>
 	</Choose>

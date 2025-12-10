@@ -1,0 +1,27 @@
+<Project>
+
+	<PropertyGroup>
+		<PublishAot>true</PublishAot>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<!-- 👇 本机库命名规则：最后一位数字使用枚举 System.Runtime.InteropServices.Architecture 的值 -->
+	<Choose>
+		<When Condition="$(RuntimeIdentifier.Contains('-x64'))">
+			<PropertyGroup>
+				<AssemblyName>$(AssemblyName)1</AssemblyName>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(RuntimeIdentifier.Contains('-x86'))">
+			<PropertyGroup>
+				<AssemblyName>$(AssemblyName)0</AssemblyName>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(RuntimeIdentifier.Contains('-arm64'))">
+			<PropertyGroup>
+				<AssemblyName>$(AssemblyName)3</AssemblyName>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
+</Project>

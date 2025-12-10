@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>d4bc6a1e-ebfb-467c-9e45-e1a957844495</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AigioLTemplate.Constants</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CertificateConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CrashConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HostConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProgramArgsConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\Resources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UrlConstants.AppName.Path.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+</Project>

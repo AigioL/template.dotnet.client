@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net$(DotNet_Version)</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([System.OperatingSystem]::IsWindows())">
+		<TargetFrameworks>net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="coverlet.collector" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" />
+		<PackageReference Include="xunit.v3" />
+		<PackageReference Include="xunit.runner.visualstudio" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Xunit" />
+		<Using Include="AigioLTemplate.UnitTest.Abstractions" />
+	</ItemGroup>
+
+	<Import Project="..\WindowsForms.props" />
+	<Import Project="..\AigioLTemplate.props" />
+
+</Project>

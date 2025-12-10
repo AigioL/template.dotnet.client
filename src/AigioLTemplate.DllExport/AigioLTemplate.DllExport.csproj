@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net$(DotNet_Version)</TargetFramework>
+		<RootNamespace>AigioLTemplate</RootNamespace>
+		<AssemblyName>aigioltemplate_ba5ac609</AssemblyName>
+		<DefineConstants>$(DefineConstants);PROJ_DLLEXPORT;DISABLE_MP2</DefineConstants>
+	</PropertyGroup>
+
+	<!-- 👇 在 Windows 上仅开发 Windows 应用程序 -->
+	<PropertyGroup Condition="$([System.OperatingSystem]::IsWindows())">
+		<DefineConstants Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">$(DefineConstants);WINDOWS</DefineConstants>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\..\ref\common\src\AigioL.Common.ProjectUtils\AigioL.Common.ProjectUtils.projitems" Label="Shared" />
+	<Import Project="..\..\ref\common\src\AigioL.Common.Models.ApiRsp\AigioL.Common.Models.ApiRsp.projitems" Label="Shared" />
+
+	<Import Project="..\NativeAOT.NativeLib.props" />
+
+	<ItemGroup>
+		<Compile Include="..\AigioLTemplate.Constants\UrlConstants.AppName.Path.cs">
+			<LinkBase>Constants</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\common\src\AigioL.Common.Bcl\Text\Json\Serialization\IJsonSerializerContext.cs">
+			<LinkBase>Bcl\Text\Json\Serialization</LinkBase>
+		</Compile>
+		<Compile Include="..\AigioLTemplate.System.IOPath\IOPath.App.cs">
+			<LinkBase>System\IO</LinkBase>
+		</Compile>
+		<Compile Include="..\AigioLTemplate.Models\ApiRspCode.cs">
+			<LinkBase>Models</LinkBase>
+		</Compile>
+		<Compile Include="..\AigioLTemplate.Models\ApiRsp.cs">
+			<LinkBase>Models</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\common\src\AigioL.Common.Bcl\Extensions\ExceptionExtensions.GetAllMessage.cs">
+			<LinkBase>Extensions</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<Import Project="$(MSBuildProjectDirectory)\..\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />
+	
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)..\..\ref\serversdk\src\AssemblyInfo.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)..\..\ref\serversdk\src\AssemblyInfo.Attribute.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+</Project>

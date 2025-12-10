@@ -1,0 +1,115 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>aigioltemplate.mobile</AssemblyName>
+		<TargetFrameworks>net$(DotNet_Version)-android;net$(DotNet_Version)-ios;net$(DotNet_Version)-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>AigioLTemplate</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+
+		<!-- Display name -->
+		<ApplicationTitle>AigioLTemplate</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.com.github.aigiol.template.mobile</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
+		<WindowsPackageType>None</WindowsPackageType>
+
+		<MauiHybridWebViewSupported>true</MauiHybridWebViewSupported>
+		<TrimMode>full</TrimMode>
+		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+			<PropertyGroup>
+			</PropertyGroup>
+		</When>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tvos'">
+			<PropertyGroup>
+			</PropertyGroup>
+		</When>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+			<PropertyGroup>
+			</PropertyGroup>
+		</When>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos'">
+			<PropertyGroup>
+			</PropertyGroup>
+		</When>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+			<PropertyGroup>
+				<RuntimeIdentifiers>android-arm64</RuntimeIdentifiers>
+				<!--<RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>-->
+				<!-- Use CoreCLR on Android https://learn.microsoft.com/zh-cn/dotnet/maui/whats-new/dotnet-10?view=net-maui-10.0#experimental-coreclr -->
+				<UseMonoRuntime>false</UseMonoRuntime>
+				<AndroidLinkTool>r8</AndroidLinkTool>
+			</PropertyGroup>
+		</When>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+			<PropertyGroup>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
+	<ItemGroup>
+		<TrimmableAssembly Include="$(AssemblyName)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+		
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
+
+		<!-- wwwroot 目录指向子模块 -->
+		<MauiAsset Include="..\..\ref\webui\src\AigioLTemplate.Mobile.WebUI\dist\**\*">
+			<LinkBase>Resources\Raw\wwwroot</LinkBase>
+			<LogicalName>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+		</MauiAsset>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" />
+		<PackageReference Condition="'$(Configuration)'=='Debug' OR $(DefineConstants.Contains('USE_LOGGING_CONSOLE'))" Include="Microsoft.Extensions.Logging.Debug" />
+	</ItemGroup>
+
+	<Import Project="$(MSBuildProjectDirectory)\..\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />
+	
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)..\..\ref\serversdk\src\AssemblyInfo.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)..\..\ref\serversdk\src\AssemblyInfo.Attribute.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net$(DotNet_Version)</TargetFramework>
+		<RootNamespace>AigioLTemplate</RootNamespace>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<!-- 👇 在 Windows 上仅开发 Windows 应用程序 -->
+	<PropertyGroup Condition="$([System.OperatingSystem]::IsWindows())">
+		<DefineConstants Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">$(DefineConstants);WINDOWS</DefineConstants>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\..\ref\common\src\AigioL.Common.ProjectUtils\AigioL.Common.ProjectUtils.projitems" Label="Shared" />
+
+	<ItemGroup>
+		<ProjectReference Include="..\AigioLTemplate.DllExport\AigioLTemplate.DllExport.csproj" />
+	</ItemGroup>
+
+	<Import Project="$(MSBuildProjectDirectory)\..\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />
+
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)..\..\ref\serversdk\src\AssemblyInfo.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)..\..\ref\serversdk\src\AssemblyInfo.Attribute.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+</Project>

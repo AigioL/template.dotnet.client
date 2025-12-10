@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!--<TargetFrameworks>net$(DotNet_Version);net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>-->
+		<TargetFrameworks>net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<OutputType Condition="'$(Configuration)' == 'Release' AND !$(DefineConstants.Contains('USE_LOGGING_CONSOLE'))">WinExe</OutputType>
+		<AssemblyName>aigioltemplate</AssemblyName>
+		<RootNamespace>AigioLTemplate</RootNamespace>
+		<!--<DefineConstants>$(DefineConstants);HAS_THE_TERM_OF_VALIDITY</DefineConstants>-->
+	</PropertyGroup>
+
+	<Import Project="..\AigioLTemplate.Console.props" />
+
+</Project>

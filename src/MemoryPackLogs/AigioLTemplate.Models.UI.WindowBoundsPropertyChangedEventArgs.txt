@@ -1,0 +1,6 @@
+GenerateType Object AigioLTemplate.Models.UI.WindowBoundsPropertyChangedEventArgs
+---
+double? X
+double? Y
+double? Width
+double? Height

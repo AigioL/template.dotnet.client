@@ -1,6 +1,6 @@
 <Project>
+	<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\Directory.Packages.props" />
 
 	<ItemGroup>
 	</ItemGroup>
-
 </Project>

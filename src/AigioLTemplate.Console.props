@@ -1,0 +1,34 @@
+<Project>
+
+	<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.props" />
+
+	<ImportGroup Condition="$([System.OperatingSystem]::IsWindows()) AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<Import Project="$(MSBuildThisFileDirectory)WindowsForms.props" />
+	</ImportGroup>
+
+	<PropertyGroup>
+		<DefineConstants>$(DefineConstants);USE_JSON_RPC</DefineConstants>
+	</PropertyGroup>
+
+	<!-- 👇 WebView2 -->
+	<PropertyGroup>
+		<WebView2NeverCopyLoaderDllToOutputDirectory>false</WebView2NeverCopyLoaderDllToOutputDirectory>
+		<!--<WebView2UseWinRT>true</WebView2UseWinRT>-->
+	</PropertyGroup>
+
+	<!-- 👇 Windows 平台配置项 -->
+	<Choose>
+		<When Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
+			<PropertyGroup>
+				<!-- Windows 应用程序（Win32）清单 -->
+				<ApplicationManifest>$(MSBuildThisFileDirectory)..\res\windows\app.manifest</ApplicationManifest>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
+	<!-- 👇 NuGet 包引用 -->
+	<ItemGroup>
+		<!--<PackageReference Include="StreamJsonRpc" />-->
+	</ItemGroup>
+
+</Project>

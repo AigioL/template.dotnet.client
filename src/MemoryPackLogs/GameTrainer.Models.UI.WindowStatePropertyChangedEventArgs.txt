@@ -1,0 +1,3 @@
+GenerateType Object GameTrainer.Models.UI.WindowStatePropertyChangedEventArgs
+---
+string WindowState

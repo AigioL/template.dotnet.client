@@ -8,7 +8,8 @@
 		<LangVersion>preview</LangVersion>
 		<Nullable>enable</Nullable>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-		<UseArtifactsOutput>true</UseArtifactsOutput>
+		<!-- 👇 BUG: Android Release 部署在启用 UseArtifactsOutput 时闪退 java.lang.UnsatisfiedLinkError: No implementation found for void crc6488302ad6e9e4df1a.MauiApplication.n_onCreate() (tried Java_crc6488302ad6e9e4df1a_MauiApplication_n_1onCreate and Java_crc6488302ad6e9e4df1a_MauiApplication_n_1onCreate__) - is the library loaded, e.g. System.loadLibrary? -->
+		<UseArtifactsOutput Condition="!$(MSBuildProjectName.StartsWith('AigioLTemplate.Mobile'))">true</UseArtifactsOutput>
 		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 		<NoWarn>$(NoWarn);NU1504;NU1507;MSB4011;NU5048;NU5104;RS1041</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -23,7 +24,6 @@
 
 	<!-- 👇 程序集信息 -->
 	<PropertyGroup>
-		<Version>1.0.0.0</Version>
 	</PropertyGroup>
 
 	<!-- 👇 CompilerVisibleProperty 配置源生成器中 MSBuild Property 可见性 -->

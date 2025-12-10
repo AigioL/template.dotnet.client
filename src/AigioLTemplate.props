@@ -1,0 +1,130 @@
+<Project>
+
+	<PropertyGroup>
+		<!-- 👇 允许使用不安全的代码块 -->
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<SatelliteResourceLanguages>zh-CN;zh-Hans</SatelliteResourceLanguages>
+	</PropertyGroup>
+
+	<!-- 👇 在 Windows 上仅开发 Windows 应用程序 -->
+	<PropertyGroup Condition="$([System.OperatingSystem]::IsWindows())">
+		<DefineConstants Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">$(DefineConstants);WINDOWS</DefineConstants>
+	</PropertyGroup>
+
+	<!-- 👇 静态本机编译 & 剪裁 | AOT & Trimmable -->
+	<PropertyGroup Condition="!$(MSBuildProjectName.Contains('UnitTest')) AND !$(MSBuildProjectName.Contains('DllExport.ConsoleTest')) AND $([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">
+		<IsTrimmable>true</IsTrimmable>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
+		<IsAotCompatible>true</IsAotCompatible>
+		<PublishAot>true</PublishAot>
+		<!-- 指示发布过程优先考虑可执行文件的大小，而不是其他性能指标。应用的大小预计会更小，但其他性能指标可能会受到影响 https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/optimizing#optimize-for-size-or-speed -->
+		<OptimizationPreference>Size</OptimizationPreference>
+	</PropertyGroup>
+
+	<!-- 👇 Release 配置中不生成程序集文档与 pdb 调试符号 -->
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+				 Only *.allowedextension files will be included, which doesn't exist in my case.
+			-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<!-- 👇 NuGet 包引用 -->
+	<ItemGroup>
+		<PackageReference Include="MemoryPack" />
+		<PackageReference Include="System.CommandLine" />
+		<!--<PackageReference Include="Newtonsoft.Json" />-->
+		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<PackageReference Include="System.IO.Hashing" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- （可选）在入口点项目上声明 USE_LOGGING_CONSOLE 以在 Release 下开启控制台日志 -->
+		<PackageReference Condition="'$(Configuration)'=='Debug' OR $(DefineConstants.Contains('USE_LOGGING_CONSOLE'))" Include="Microsoft.Extensions.Logging.Console" />
+	</ItemGroup>
+
+	<!-- 👇 Windows 平台配置项 -->
+	<Choose>
+		<When Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
+			<ItemGroup>
+				<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
+				<PackageReference Include="Microsoft.Windows.CsWin32">
+					<PrivateAssets>all</PrivateAssets>
+					<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+				</PackageReference>
+				<AdditionalFiles Include="$(MSBuildThisFileDirectory)AigioLTemplate.Windows.Win32\NativeMethods.txt">
+					<Link>NativeMethods.txt</Link>
+				</AdditionalFiles>
+				<PackageReference Include="WmiLight" />
+			</ItemGroup>
+			<PropertyGroup>
+				<PublishWmiLightStaticallyLinked>true</PublishWmiLightStaticallyLinked>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
+	<!-- 👇 NativeAOT 构建完全 distroless 的静态链接 -->
+	<ItemGroup>
+		<!--<NativeLibrary Condition="$(RuntimeIdentifier.StartsWith('win'))" Include="$(NugetRoot)build\native\x64\WebView2LoaderStatic.lib" />-->
+	</ItemGroup>
+
+	<!-- 👇 此项目引用的共享项目 -->
+	<ImportGroup>
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Bcl\AigioL.Common.Bcl.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Bcl.LogInit\AigioL.Common.Bcl.LogInit.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Models.ApiRsp\AigioL.Common.Models.ApiRsp.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.System.IOPath.FileSystem\AigioL.Common.System.IOPath.FileSystem.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Essentials\AigioL.Common.Essentials.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Primitives\AigioL.Common.Primitives.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.JsonWebTokens.Models.Dtos\AigioL.Common.JsonWebTokens.Models.Dtos.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.System.Security.Cryptography.Aes\AigioL.Common.System.Security.Cryptography.Aes.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.System.Security.Cryptography.RSA\AigioL.Common.System.Security.Cryptography.RSA.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.AspNetCore.AppCenter.Core.ClientSide\AigioL.Common.AspNetCore.AppCenter.Core.ClientSide.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.AspNetCore.AppCenter.Identity.Core.ClientSide\AigioL.Common.AspNetCore.AppCenter.Identity.Core.ClientSide.projitems" Label="Shared" />
+
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Constants\AigioLTemplate.ServerSdk.Constants.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Services\AigioLTemplate.ServerSdk.Services.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Models\AigioLTemplate.ServerSdk.Models.projitems" Label="Shared" />
+		
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Extensions\AigioLTemplate.Extensions.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Models\AigioLTemplate.Models.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Constants\AigioLTemplate.Constants.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Hosting\AigioLTemplate.Hosting.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Helpers.UI\AigioLTemplate.Helpers.UI.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Commands\AigioLTemplate.Commands.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Ipc\AigioLTemplate.Ipc.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.System.IOPath\AigioLTemplate.System.IOPath.projitems" Label="Shared" />
+	</ImportGroup>
+
+	<ImportGroup Condition="'$(Configuration)'=='Debug' OR $(MSBuildProjectName.Contains('UnitTest'))">
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.ProjectUtils\AigioL.Common.ProjectUtils.projitems" Label="Shared" />
+	</ImportGroup>
+
+	<ImportGroup Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
+		<Import Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))" Project="$(MSBuildThisFileDirectory)AigioLTemplate.Windows.Win32\AigioLTemplate.Windows.Win32.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.System.Management.NetworkInformation\AigioL.Common.System.Management.NetworkInformation.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Windows.Win32.SetWindowsHookEx\AigioL.Common.Windows.Win32.SetWindowsHookEx.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Windows.Win32.NativeLibraryE\AigioL.Common.Windows.Win32.NativeLibraryE.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Windows.Win32.System.ClrHosting\AigioL.Common.Windows.Win32.System.ClrHosting.projitems" Label="Shared" />
+	</ImportGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />
+	
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AssemblyInfo.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AssemblyInfo.Attribute.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+</Project>

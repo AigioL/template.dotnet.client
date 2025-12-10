@@ -1,0 +1,17 @@
+<Project>
+
+	<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.props" />
+
+	<!-- 👇 Msix 包签名（TODO，加上文件检测） -->
+	<PropertyGroup>
+		<PackageCertificateThumbprint>ACBAD7EECC1BB140A88FEAD92009803261480CA0</PackageCertificateThumbprint>
+		<AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+	</PropertyGroup>
+
+	<!-- 👇 CSWinRT -->
+	<PropertyGroup>
+		<!-- WinUI3 需要 CSWinRT 的源生成器来生成支持 AOT 的 C# 代码 -->
+		<CsWinRTAotOptimizerEnabled>true</CsWinRTAotOptimizerEnabled>
+	</PropertyGroup>
+
+</Project>

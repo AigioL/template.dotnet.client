@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>5aedd4b0-30f8-4e7e-9377-05e87143b8dd</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AigioLTemplate.Commands</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CommandHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandHelpers.JsonRpc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\Abstractions\IConsoleCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\ICLRCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\IDebugCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\IDevToolsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\IInfoCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\IMainCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandLines\ITypesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Abstractions\FeatureCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Abstractions\IFeatureCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Abstractions\IFeatureCommand.GetCommandName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Abstractions\IV2FeatureCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Abstractions\IV2FeatureCommandFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Essentials\DeviceInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Essentials\VersionTracking.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\HttpClientBaseAddress.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\MainWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\无请求无响应示例.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\无请求有响应示例.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\有请求无响应示例.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\有请求有响应示例.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\WebApi\AigioLTemplateFetch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\WebApi\GetDeviceId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\Window.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+</Project>
