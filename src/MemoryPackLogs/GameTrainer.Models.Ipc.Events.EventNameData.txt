@@ -1,3 +1,0 @@
-GenerateType Object GameTrainer.Models.Ipc.Events.EventNameData
----
-string Event

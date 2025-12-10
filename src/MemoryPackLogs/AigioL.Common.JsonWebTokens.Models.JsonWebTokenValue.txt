@@ -1,5 +1,0 @@
-GenerateType Object AigioL.Common.JsonWebTokens.Models.JsonWebTokenValue
----
-System.DateTimeOffset ExpiresIn
-string AccessToken
-string RefreshToken

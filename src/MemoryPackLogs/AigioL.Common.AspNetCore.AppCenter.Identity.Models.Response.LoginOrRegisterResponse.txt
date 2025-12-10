@@ -1,7 +1,0 @@
-GenerateType VersionTolerant AigioL.Common.AspNetCore.AppCenter.Identity.Models.Response.LoginOrRegisterResponse
----
-AigioL.Common.JsonWebTokens.Models.JsonWebTokenValue AuthToken
-AigioL.Common.AspNetCore.AppCenter.Identity.Models.UserInfoModel User
-bool IsLoginOrRegister
-string PhoneNumber
-AigioL.Common.AspNetCore.AppCenter.Models.ExternalLoginChannel? FastLRBChannel

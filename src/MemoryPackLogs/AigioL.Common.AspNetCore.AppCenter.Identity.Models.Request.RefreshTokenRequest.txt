@@ -1,6 +1,0 @@
-GenerateType VersionTolerant AigioL.Common.AspNetCore.AppCenter.Identity.Models.Request.RefreshTokenRequest
----
-string RefreshToken
-System.Guid DeviceIdG
-string DeviceIdR
-string DeviceIdN

@@ -1,5 +1,0 @@
-GenerateType Object GameTrainer.Models.Ipc.Queues.ElevatedQueueItem
----
-int Id
-GameTrainer.Models.Ipc.Queues.Abstractions.QueueItemStatus Status
-GameTrainer.Models.Ipc.Events.EventNameData Data

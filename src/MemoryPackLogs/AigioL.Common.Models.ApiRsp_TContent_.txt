@@ -1,7 +1,0 @@
-GenerateType VersionTolerant AigioL.Common.Models.ApiRsp<TContent>
----
-uint Code
-string Message
-string Url
-string TraceId
-TContent Content

@@ -1,4 +1,0 @@
-GenerateType Object GameTrainer.Models.Ipc.Events.Int32ArrayEventData
----
-string Event
-int[] Data

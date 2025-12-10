@@ -1,5 +1,0 @@
-GenerateType Object AigioLTemplate.Models.Ipc.Queues.HotkeyQueueItem
----
-int Id
-AigioLTemplate.Models.Ipc.Queues.Abstractions.QueueItemStatus Status
-AigioLTemplate.Models.Ipc.Events.Int32ArrayEventData Data
