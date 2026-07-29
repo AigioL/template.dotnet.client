@@ -335,55 +335,55 @@ file interface I9e4114b2
 #if DEBUG
         string[]? args_o = args; // 传递进来的值
 #endif
-    //if (IsDesignMode)
-    //{
-    //    // 当前为设计器模式，不需要解析参数
-    //    args ??= [];
-    //    goto RE;
-    //}
+        //if (IsDesignMode)
+        //{
+        //    // 当前为设计器模式，不需要解析参数
+        //    args ??= [];
+        //    goto RE;
+        //}
 
 #if WINDOWS
-    //{
-    //    if (OSHelper.IsRunningAsUwp)
-    //    {
-    //        IActivatedEventArgs? activatedArgs = null;
-    //        try
-    //        {
-    //            activatedArgs = AppInstance.GetActivatedEventArgs();
-    //        }
-    //        catch
-    //        {
-    //            // 有部分用户反馈此处异常
-    //            // System.Runtime.InteropServices.COMException (0x80070520): 指定的登录会话不存在。可能已被终止。
-    //        }
-    //        if (activatedArgs != null)
-    //        {
-    //            switch (activatedArgs.Kind)
-    //            {
-    //                // URL 协议启动 by MSIX 包标识
-    //                case ActivationKind.Protocol:
-    //                    {
-    //                        if (activatedArgs is ProtocolActivatedEventArgs protocolActivatedEventArgs)
-    //                        {
-    //                            var uri = protocolActivatedEventArgs.Uri;
-    //                            if (uri != null)
-    //                            {
-    //                                startupUrl = uri.ToString();
-    //                                args = [command_url];
-    //                            }
-    //                        }
-    //                        break;
-    //                    }
-    //                // MSIX 包形式的开机启动
-    //                case ActivationKind.StartupTask:
-    //                    {
-    //                        args = SystemBootRunArguments.Split(' ');
-    //                        break;
-    //                    }
-    //            }
-    //        }
-    //    }
-    //}
+        //{
+        //    if (OSHelper.IsRunningAsUwp)
+        //    {
+        //        IActivatedEventArgs? activatedArgs = null;
+        //        try
+        //        {
+        //            activatedArgs = AppInstance.GetActivatedEventArgs();
+        //        }
+        //        catch
+        //        {
+        //            // 有部分用户反馈此处异常
+        //            // System.Runtime.InteropServices.COMException (0x80070520): 指定的登录会话不存在。可能已被终止。
+        //        }
+        //        if (activatedArgs != null)
+        //        {
+        //            switch (activatedArgs.Kind)
+        //            {
+        //                // URL 协议启动 by MSIX 包标识
+        //                case ActivationKind.Protocol:
+        //                    {
+        //                        if (activatedArgs is ProtocolActivatedEventArgs protocolActivatedEventArgs)
+        //                        {
+        //                            var uri = protocolActivatedEventArgs.Uri;
+        //                            if (uri != null)
+        //                            {
+        //                                startupUrl = uri.ToString();
+        //                                args = [command_url];
+        //                            }
+        //                        }
+        //                        break;
+        //                    }
+        //                // MSIX 包形式的开机启动
+        //                case ActivationKind.StartupTask:
+        //                    {
+        //                        args = SystemBootRunArguments.Split(' ');
+        //                        break;
+        //                    }
+        //            }
+        //        }
+        //    }
+        //}
 #endif
 
 #pragma warning disable CS0164 // 这个标签尚未被引用

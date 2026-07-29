@@ -11,7 +11,7 @@ namespace AigioLTemplate;
 
 public static partial class DeviceIdExtensions
 {
-    public static void SetDeviceId(this IDeviceId deviceId)
+    public static partial void SetDeviceId(this IDeviceId deviceId)
     {
         deviceId.DeviceIdG = DeviceIdHelper.lazy.Value.g;
         deviceId.DeviceIdR = DeviceIdHelper.lazy.Value.r;

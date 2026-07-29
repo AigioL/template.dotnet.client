@@ -27,7 +27,7 @@ sealed partial class HttpClientBaseAddress
             UrlConstants_.OfficialWebsite = args.OfficialWebsite;
         }
 
-        var webApiService = Ioc.Default.GetRequiredService<IAigioLTemplateWebApiService>();
+        var webApiService = Ioc.Default.GetRequiredService<IServerSdkWebApiService>();
         var referrer = webApiService.Referrer;
         TResult r = new(referrer, UrlConstants.ApiBaseUrl, UrlConstants.OfficialWebsite);
         return r;

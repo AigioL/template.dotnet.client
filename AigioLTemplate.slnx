@@ -26,6 +26,7 @@
     <File Path="doc/Serializable-And-Deserialize.md" />
   </Folder>
   <Folder Name="/2.Libraries/">
+    <Project Path="src/AigioLTemplate.AppCenter/AigioLTemplate.AppCenter.shproj" Id="859f58a2-fddf-40a9-ae5c-0f07a6230ebc" />
     <Project Path="src/AigioLTemplate.Commands/AigioLTemplate.Commands.shproj" Id="5aedd4b0-30f8-4e7e-9377-05e87143b8dd" />
     <Project Path="src/AigioLTemplate.Constants/AigioLTemplate.Constants.shproj" Id="d4bc6a1e-ebfb-467c-9e45-e1a957844495" />
     <Project Path="src/AigioLTemplate.DllExport/AigioLTemplate.DllExport.csproj" Id="de815a9f-af61-40be-bcc8-af1b94136a9b" />
@@ -66,6 +67,7 @@
     <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.Constants/AigioLTemplate.ServerSdk.Constants.shproj" Id="b17289bc-dc20-4bc0-90c1-1554d0c55604" />
     <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.Models/AigioLTemplate.ServerSdk.Models.shproj" Id="fda9b06f-dae8-4ca3-864a-fa8088dcb273" />
     <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.Services/AigioLTemplate.ServerSdk.Services.shproj" Id="4ac60550-6471-4721-b4d0-b83ba4843c28" />
+    <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.UnitTest.Shared/AigioLTemplate.ServerSdk.UnitTest.Shared.shproj" Id="6daab5e5-bfc3-48de-91a0-6149bb7cc509" />
   </Folder>
   <Folder Name="/3.EntryPoint/">
     <Project Path="src/AigioLTemplate.Mobile/AigioLTemplate.Mobile.csproj" Id="9c4d7197-34b4-4ab4-9816-3291fcd286ca">

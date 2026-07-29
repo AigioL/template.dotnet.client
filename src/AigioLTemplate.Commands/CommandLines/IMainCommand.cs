@@ -127,18 +127,10 @@ interface IMainCommand : IConsoleCommand
         services.AddSingleton(Options.Create(AppSecrets.Instance));
 
         // 添加 Essential 服务
-        var versionString = I1c5cf9e8.FileVersion;
-        var version = Version.Parse(versionString);
-        var buildString = version.Build.ToString();
-        services.AddEssential(
-            AssemblyInfo.ApplicationId,
-            null,
-            versionString,
-            buildString,
-            IOPath.AppDataDirectory);
+        services.AddEssential();
 
         // 添加 WebApi 服务
-        services.AddAigioLTemplateWebApiService<AppSecrets, UserInfoModel>();
+        services.AddServerSdkWebApiService<AppSecrets, UserInfoModel>();
     }
 }
 

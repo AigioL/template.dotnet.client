@@ -21,7 +21,7 @@ sealed partial class AigioLTemplateFetch
             return ApiRspCode.BadRequest;
         }
 
-        var webApiService = Ioc.Default.GetRequiredService<IAigioLTemplateWebApiService>();
+        var webApiService = Ioc.Default.GetRequiredService<IServerSdkWebApiService>();
 
         var method = HttpMethod.Parse(args.Method);
         var baseAddress = new Uri(args.BaseAddress, UriKind.Absolute);

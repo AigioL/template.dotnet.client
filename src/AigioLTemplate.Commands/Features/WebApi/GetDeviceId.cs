@@ -20,7 +20,7 @@ sealed partial class GetDeviceId
         var userStore = Ioc.Default.GetRequiredService<IUserStore<UserInfoModel>>();
         var currentUser = await userStore.GetCurrentUserAsync(false);
         var userInfo = await userStore.GetCurrentUserInfoAsync();
-        var webApiService = Ioc.Default.GetRequiredService<IAigioLTemplateWebApiService>();
+        var webApiService = Ioc.Default.GetRequiredService<IServerSdkWebApiService>();
         var authenticationHeader = webApiService.GetAuthenticationHeaderValue(currentUser?.AuthToken);
         TResult m = new()
         {
