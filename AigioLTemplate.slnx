@@ -2,6 +2,7 @@
   <Folder Name="/1.Root/">
     <File Path=".gitignore" />
     <File Path="README.md" />
+    <File Path="ref/serversdk/src/GenerateAssemblyXYZAttribute.props" />
     <File Path="src/.editorconfig" />
     <File Path="src/AigioLTemplate.Console.props" />
     <File Path="src/AigioLTemplate.props" />

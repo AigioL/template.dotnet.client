@@ -28,6 +28,25 @@ static unsafe partial class DllExport
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate4")]
     public static int PostMessage(int taskId, int commandName_len, [NotNull] char* commandName_ptr, int reqMessage_len, byte* reqMessage_ptr, [NotNull] delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
     {
+        try
+        {
+            MethodStartLog();
+            var r = PostMessageCore(taskId, commandName_len, commandName_ptr, reqMessage_len, reqMessage_ptr, rspMessage_callback);
+            return r;
+        }
+        catch (Exception ex)
+        {
+            MethodExceptionLog(ex);
+            throw;
+        }
+        finally
+        {
+            MethodEndLog();
+        }
+    }
+
+    static int PostMessageCore(int taskId, int commandName_len, char* commandName_ptr, int reqMessage_len, byte* reqMessage_ptr, delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
+    {
         if (commandName_len <= 0 || commandName_ptr == default || rspMessage_callback == default)
         {
             // 禁止传入空指针
@@ -120,6 +139,25 @@ static unsafe partial class DllExport
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate3")]
     public static int SetOnMessageReceivedListener(delegate* unmanaged<int, byte*, void> onMessageReceivedListener)
     {
+        try
+        {
+            MethodStartLog();
+            var r = SetOnMessageReceivedListenerCore(onMessageReceivedListener);
+            return r;
+        }
+        catch (Exception ex)
+        {
+            MethodExceptionLog(ex);
+            throw;
+        }
+        finally
+        {
+            MethodEndLog();
+        }
+    }
+
+    static int SetOnMessageReceivedListenerCore(delegate* unmanaged<int, byte*, void> onMessageReceivedListener)
+    {
         if (onMessageReceivedListener == default)
         {
             // 禁止传入空指针
@@ -159,6 +197,25 @@ static unsafe partial class DllExport
     /// <returns></returns>
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate2")]
     public static int Send(int taskId, int methodName_len, [NotNull] char* methodName_ptr, int reqMessage_len, byte* reqMessage_ptr, [NotNull] delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
+    {
+        try
+        {
+            MethodStartLog();
+            var r = SendCore(taskId, methodName_len, methodName_ptr, reqMessage_len, reqMessage_ptr, rspMessage_callback);
+            return r;
+        }
+        catch (Exception ex)
+        {
+            MethodExceptionLog(ex);
+            throw;
+        }
+        finally
+        {
+            MethodEndLog();
+        }
+    }
+
+    static int SendCore(int taskId, int methodName_len, char* methodName_ptr, int reqMessage_len, byte* reqMessage_ptr, delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
     {
         if (methodName_len <= 0 || methodName_ptr == default || rspMessage_callback == default)
         {

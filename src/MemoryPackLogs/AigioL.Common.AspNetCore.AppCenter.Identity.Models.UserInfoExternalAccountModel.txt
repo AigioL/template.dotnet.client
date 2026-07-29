@@ -1,0 +1,6 @@
+GenerateType VersionTolerant AigioL.Common.AspNetCore.AppCenter.Identity.Models.UserInfoExternalAccountModel
+---
+AigioL.Common.AspNetCore.AppCenter.Models.ExternalLoginChannel Type
+string ExternalAccountId
+string AvatarUrl
+string NickName

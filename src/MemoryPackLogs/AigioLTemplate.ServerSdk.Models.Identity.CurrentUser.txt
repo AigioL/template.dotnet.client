@@ -1,0 +1,7 @@
+GenerateType Object AigioLTemplate.ServerSdk.Models.Identity.CurrentUser
+---
+System.Guid UserId
+AigioL.Common.JsonWebTokens.Models.JsonWebTokenValue AuthToken
+string PhoneNumber
+string PhoneNumberRegionCode
+string Email

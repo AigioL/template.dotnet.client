@@ -66,6 +66,36 @@ static unsafe partial class DllExport
         [Out] int* nativeApiRspCode,
         int killOrFindBackendProcess = 0)
     {
+        try
+        {
+            MethodStartLog();
+            var r = StartBackendAsPrivilegedCore(
+                argc, argv,
+                processPath_len, processPath_ptr,
+                processId,
+                nativeApiRspCode,
+                killOrFindBackendProcess);
+            return r;
+        }
+        catch (Exception ex)
+        {
+            MethodExceptionLog(ex);
+            throw;
+        }
+        finally
+        {
+            MethodEndLog();
+        }
+    }
+
+
+    static int StartBackendAsPrivilegedCore(
+        int argc, char* argv,
+        int processPath_len, char* processPath_ptr,
+        int* processId,
+        int* nativeApiRspCode,
+        int killOrFindBackendProcess)
+    {
         lock (lockBackend)
         {
             try

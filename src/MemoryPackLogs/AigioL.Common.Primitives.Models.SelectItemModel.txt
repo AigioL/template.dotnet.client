@@ -1,0 +1,4 @@
+GenerateType Object AigioL.Common.Primitives.Models.SelectItemModel
+---
+string Title
+bool Disable

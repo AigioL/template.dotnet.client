@@ -12,7 +12,7 @@
 		<DefineConstants Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">$(DefineConstants);WINDOWS</DefineConstants>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\..\ref\common\src\AigioL.Common.ProjectUtils\AigioL.Common.ProjectUtils.projitems" Label="Shared" />
+	<Import Condition="'$(Configuration)'=='Debug'" Project="$(MSBuildThisFileDirectory)..\..\ref\common\src\AigioL.Common.ProjectUtils\AigioL.Common.ProjectUtils.projitems" Label="Shared" />
 	<Import Project="..\..\ref\common\src\AigioL.Common.Models.ApiRsp\AigioL.Common.Models.ApiRsp.projitems" Label="Shared" />
 
 	<Import Project="..\NativeAOT.NativeLib.props" />
@@ -36,6 +36,10 @@
 		<Compile Include="..\..\ref\common\src\AigioL.Common.Bcl\Extensions\ExceptionExtensions.GetAllMessage.cs">
 			<LinkBase>Extensions</LinkBase>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
 	</ItemGroup>
 
 	<Import Project="$(MSBuildProjectDirectory)\..\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />

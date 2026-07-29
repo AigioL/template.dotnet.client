@@ -1,0 +1,26 @@
+GenerateType VersionTolerant AigioL.Common.AspNetCore.AppCenter.Identity.Models.UserInfoModel
+---
+System.Guid Id
+string NickName
+uint Experience
+decimal Balance
+byte Level
+AigioL.Common.Primitives.Models.Gender Gender
+System.DateTimeOffset? BirthDate
+sbyte BirthDateTimeZone
+byte? CalcAge
+int? AreaId
+string AppleAccountEmail
+string AvatarUrl
+AigioL.Common.AspNetCore.AppCenter.Models.UserType UserType
+uint NextExperience
+bool IsSignIn
+string PhoneNumber
+string PersonalizedSignature
+string ThirdPartyOpenId
+string Email
+bool EmailConfirmed
+bool HasPassword
+string PhoneNumberRegionCode
+AigioL.Common.AspNetCore.AppCenter.Identity.Models.Membership.MembershipInfo MembershipInfo
+System.Collections.Generic.List<AigioL.Common.AspNetCore.AppCenter.Identity.Models.UserInfoExternalAccountModel> ExternalAccounts

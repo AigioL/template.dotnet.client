@@ -1,0 +1,7 @@
+GenerateType VersionTolerant AigioL.Common.AspNetCore.AppCenter.Identity.Models.Membership.MembershipInfo
+---
+AigioL.Common.AspNetCore.AppCenter.Identity.Models.Membership.MembershipLicenseFlags MemberLicenseFlags
+System.DateTimeOffset? StartDate
+System.DateTimeOffset? ExpireDate
+System.DateTimeOffset? FirstMembershipDate
+System.TimeSpan PayAsYoGo

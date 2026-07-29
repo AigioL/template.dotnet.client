@@ -4,6 +4,7 @@
 		<!-- 👇 允许使用不安全的代码块 -->
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<SatelliteResourceLanguages>zh-CN;zh-Hans</SatelliteResourceLanguages>
+		<ApplicationIcon Condition="Exists('$(MSBuildThisFileDirectory)..\res\windows\ApplicationIcon.ico')">$(MSBuildThisFileDirectory)..\res\windows\ApplicationIcon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<!-- 👇 在 Windows 上仅开发 Windows 应用程序 -->
@@ -44,6 +45,17 @@
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 		<PackageReference Include="System.IO.Hashing" />
+		<PackageReference Include="NLog" />
+		<PackageReference Include="NLog.Extensions.Logging" />
+		<PackageReference Include="DotNext.Threading" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--<PackageReference Include="Microsoft.AppCenter.Analytics" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" />-->
+		<!--<ProjectReference Include="$(MSBuildThisFileDirectory)..\ref\appcenter-sdk\SDK\AppCenterAnalytics\Microsoft.AppCenter.Analytics.WindowsDesktop\Microsoft.AppCenter.Analytics.WindowsDesktop.csproj" />
+		<ProjectReference Include="$(MSBuildThisFileDirectory)..\ref\appcenter-sdk\SDK\AppCenterCrashes\Microsoft.AppCenter.Crashes.WindowsDesktop\Microsoft.AppCenter.Crashes.WindowsDesktop.csproj" />
+		<ProjectReference Include="$(MSBuildThisFileDirectory)..\ref\appcenter-sdk\SDK\AppCenter\Microsoft.AppCenter.WindowsDesktop\Microsoft.AppCenter.WindowsDesktop.csproj" />-->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,6 +67,9 @@
 	<Choose>
 		<When Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
 			<ItemGroup>
+				<PackageReference Include="System.Drawing.Common" />
+				<PackageReference Include="System.Security.Cryptography.Pkcs" />
+				<PackageReference Include="System.Security.Cryptography.ProtectedData" />
 				<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
 				<PackageReference Include="Microsoft.Windows.CsWin32">
 					<PrivateAssets>all</PrivateAssets>
@@ -89,6 +104,7 @@
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.System.Security.Cryptography.RSA\AigioL.Common.System.Security.Cryptography.RSA.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.AspNetCore.AppCenter.Core.ClientSide\AigioL.Common.AspNetCore.AppCenter.Core.ClientSide.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.AspNetCore.AppCenter.Identity.Core.ClientSide\AigioL.Common.AspNetCore.AppCenter.Identity.Core.ClientSide.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.AspNetCore.AppCenter.Analytics.Core.ClientSide\AigioL.Common.AspNetCore.AppCenter.Analytics.Core.ClientSide.projitems" Label="Shared" />
 
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Constants\AigioLTemplate.ServerSdk.Constants.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Services\AigioLTemplate.ServerSdk.Services.projitems" Label="Shared" />
@@ -109,12 +125,14 @@
 	</ImportGroup>
 
 	<ImportGroup Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
-		<Import Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))" Project="$(MSBuildThisFileDirectory)AigioLTemplate.Windows.Win32\AigioLTemplate.Windows.Win32.projitems" Label="Shared" />
+		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Windows.Win32\AigioLTemplate.Windows.Win32.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.System.Management.NetworkInformation\AigioL.Common.System.Management.NetworkInformation.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Windows.Win32.SetWindowsHookEx\AigioL.Common.Windows.Win32.SetWindowsHookEx.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Windows.Win32.NativeLibraryE\AigioL.Common.Windows.Win32.NativeLibraryE.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\common\src\AigioL.Common.Windows.Win32.System.ClrHosting\AigioL.Common.Windows.Win32.System.ClrHosting.projitems" Label="Shared" />
 	</ImportGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\EmbeddedResource.RSAKey.props" />
 
 	<Import Project="$(MSBuildThisFileDirectory)\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />
 	

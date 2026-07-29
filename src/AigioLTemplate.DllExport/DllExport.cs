@@ -13,7 +13,7 @@ namespace AigioLTemplate;
 /// </summary>
 public static unsafe partial class DllExport
 {
-    internal static unsafe void SendCatchMessage(delegate* unmanaged<int, byte*, void> func, Exception ex)
+    internal static void SendCatchMessage(delegate* unmanaged<int, byte*, void> func, Exception ex)
     {
         if (func != default)
         {
@@ -60,7 +60,7 @@ public static unsafe partial class DllExport
         }
     }
 
-    internal static unsafe void SendCatchMessage(int taskId, int commandName_len, char* commandName_ptr, ApiRspCode code, Exception? ex, delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
+    internal static void SendCatchMessage(int taskId, int commandName_len, char* commandName_ptr, ApiRspCode code, Exception? ex, delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
     {
         ApiRsp rsp = new()
         {

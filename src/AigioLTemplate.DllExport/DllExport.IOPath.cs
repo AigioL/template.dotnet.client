@@ -11,7 +11,26 @@ static unsafe partial class DllExport
     /// <param name="type"></param>
     /// <returns></returns>
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate0")]
-    public static int GetSpecialPathLength(int type) => type switch
+    public static int GetSpecialPathLength(int type)
+    {
+        try
+        {
+            MethodStartLog();
+            var r = GetSpecialPathLengthCore(type);
+            return r;
+        }
+        catch (Exception ex)
+        {
+            MethodExceptionLog(ex);
+            throw;
+        }
+        finally
+        {
+            MethodEndLog();
+        }
+    }
+
+    static int GetSpecialPathLengthCore(int type) => type switch
     {
         1 => IOPath.AppDataDirectory.Length,
         2 => IOPath.CacheDirectory.Length,
@@ -28,6 +47,25 @@ static unsafe partial class DllExport
     /// <returns></returns>
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate1")]
     public static bool GetSpecialPath(int type, int value_len, [NotNull][In] char* value_ptr)
+    {
+        try
+        {
+            MethodStartLog();
+            var r = GetSpecialPathCore(type, value_len, value_ptr);
+            return r;
+        }
+        catch (Exception ex)
+        {
+            MethodExceptionLog(ex);
+            throw;
+        }
+        finally
+        {
+            MethodEndLog();
+        }
+    }
+
+    static bool GetSpecialPathCore(int type, int value_len, char* value_ptr)
     {
         if (value_len <= 0 || value_ptr == default)
         {

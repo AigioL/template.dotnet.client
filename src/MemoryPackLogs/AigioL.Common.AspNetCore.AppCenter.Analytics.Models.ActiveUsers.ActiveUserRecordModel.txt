@@ -1,0 +1,18 @@
+GenerateType VersionTolerant AigioL.Common.AspNetCore.AppCenter.Analytics.Models.ActiveUsers.ActiveUserRecordModel
+---
+AigioL.Common.AspNetCore.AppCenter.Analytics.Models.ActiveUsers.ActiveUserAnonymousStatisticType Type
+AigioL.Common.Primitives.Models.WebApiCompatDevicePlatform Platform
+AigioL.Common.Primitives.Models.DeviceIdiom DeviceIdiom
+string OSVersion
+int ScreenCount
+double PrimaryScreenPixelDensity
+int PrimaryScreenWidth
+int PrimaryScreenHeight
+int SumScreenWidth
+int SumScreenHeight
+System.Runtime.InteropServices.ArchitectureFlags ProcessArch
+bool? IsAuthenticated
+System.Guid DeviceIdG
+string DeviceIdR
+string DeviceIdN
+string ChannelPackageId

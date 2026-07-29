@@ -258,19 +258,31 @@ $"""
         return PostMessageAsync(request.RequestId, request.Method ?? "", reqMessage);
     }
 
-    static nint? aigioltemplate_ba5ac609_ptr;
+    static nint? lib_ptr;
 
     static nint DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
-        if (libraryName == "aigioltemplate_ba5ac609")
+        if (libraryName == Program.libraryName)
         {
-            if (!aigioltemplate_ba5ac609_ptr.HasValue)
+            if (!lib_ptr.HasValue)
             {
-                var aotDll = Path.Combine(ProjPath, @$"src\artifacts\pub\AigioLTemplate.DllExport\win-{RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()}\Shared\aigioltemplate_ba5ac609{((int)RuntimeInformation.ProcessArchitecture)}.dll");
-                Console.WriteLine($"已加载本机库：{Path.GetRelativePath(ProjPath, aotDll)}");
-                aigioltemplate_ba5ac609_ptr = NativeLibrary.Load(aotDll);
+                var fileName = $"{libraryName}{((int)RuntimeInformation.ProcessArchitecture)}.dll";
+                var aotDll = Path.Combine(ProjPath, @$"src\artifacts\pub\AigioLTemplate.DllExport\win-{RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()}\Shared\{fileName}");
+
+                if (!File.Exists(aotDll))
+                {
+                    var baseDir = Environment.ProcessPath;
+                    baseDir = string.IsNullOrWhiteSpace(baseDir) ? null : Path.GetDirectoryName(baseDir);
+                    if (baseDir != null)
+                    {
+                        aotDll = Path.Combine(baseDir, fileName);
+                    }
+                }
+
+                Console.WriteLine($"已加载本机库：{(string.IsNullOrWhiteSpace(ProjPath) ? aotDll : Path.GetRelativePath(ProjPath, aotDll))}");
+                lib_ptr = NativeLibrary.Load(aotDll);
             }
-            return aigioltemplate_ba5ac609_ptr.Value;
+            return lib_ptr.Value;
         }
         return default;
     }

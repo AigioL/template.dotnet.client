@@ -1,0 +1,6 @@
+GenerateType Object AigioL.Common.Primitives.Models.PagedModel<T>
+---
+System.Collections.Generic.IList<T> DataSource
+int Current
+int PageSize
+int Total
