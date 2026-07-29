@@ -1,3 +1,6 @@
 [submodule "ref/common"]
 	path = ref/common
 	url = https://github.com/AigioL/Common
+[submodule "ref/serversdk"]
+	path = ref/serversdk
+	url = https://github.com/AigioL/template.dotnet.serversdk
