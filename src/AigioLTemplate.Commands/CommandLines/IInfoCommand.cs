@@ -1,6 +1,8 @@
 using AigioL.Common.AspNetCore.AppCenter.Models.Abstractions;
 using AigioLTemplate.Commands.CommandLines.Abstractions;
 using AigioLTemplate.Hosting;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System.CommandLine;
 using System.Management.NetworkInformation;
 using System.Runtime.CompilerServices;
@@ -29,6 +31,12 @@ interface IInfoCommand : IConsoleCommand
 
     static ExitCodeStruct Handler()
     {
+        // 配置依赖注入服务
+        var services = new ServiceCollection();
+        ConfigureServices(services);
+        var serviceProvider = services.BuildServiceProvider();
+        Ioc.Default.ConfigureServices(serviceProvider);
+
         using ConsoleDisposable consoleDisposable = new();
 
         StringBuilder b = new();
@@ -146,6 +154,12 @@ interface IInfoCommand : IConsoleCommand
         {
             Console.Error.WriteLine(ex.ToString());
         }
+    }
+
+    internal static void ConfigureServices(IServiceCollection services)
+    {
+        // 添加 Essential 服务
+        services.AddEssential();
     }
 }
 

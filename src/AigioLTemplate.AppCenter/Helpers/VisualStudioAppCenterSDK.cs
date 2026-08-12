@@ -5,6 +5,11 @@ namespace AigioLTemplate.VSAppCenter.Helpers;
 
 partial class VisualStudioAppCenterSDK
 {
+    internal static partial void Init()
+    {
+
+    }
+
     internal static partial void SetUserId(Guid? userId)
     {
     }

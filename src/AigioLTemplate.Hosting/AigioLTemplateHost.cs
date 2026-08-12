@@ -9,6 +9,9 @@ using static AigioLTemplate.Constants.ProgramArgsConstants;
 using static AigioLTemplate.Constants.UrlConstants;
 using static AigioLTemplate.Hosting.I9e4114b2;
 using static AigioLTemplate.Hosting.AigioLTemplateHost;
+using AigioL.Common.Essentials;
+using System.Reflection;
+using AigioLTemplate.VSAppCenter.Helpers;
 
 namespace AigioLTemplate.Hosting;
 
@@ -47,7 +50,7 @@ internal partial interface AigioLTemplateHost
             }
         }
 #else
-        return _.StartCore(args);
+        return StartCore(args);
 #endif
     }
 
@@ -270,6 +273,21 @@ file interface I9e4114b2
             // 初始化 GetCodeByExceptionDelegate
             ApiRspExtensions.GetCodeByExceptionDelegate = ApiRspCodeExtensions.GetCodeByException;
 
+            // 初始化 Essential
+            {
+                var versionString = I1c5cf9e8.FileVersion;
+                var version = Version.Parse(versionString);
+                var buildString = version.Build.ToString();
+                EssentialInit.InitEssential(
+                    AssemblyInfo.ApplicationId,
+                    null,
+                    versionString,
+                    buildString,
+                    IOPath.AppDataDirectory);
+            }
+
+            VisualStudioAppCenterSDK.Init();
+
             var exitCode = StartByRootCommand(args);
             return exitCode;
         }
@@ -400,4 +418,54 @@ file interface I9e4114b2
         var args_result = GetCommandLineArgsCore(args_span, setHostConstants);
         return args_result;
     }
+}
+
+file static partial class I1c5cf9e8
+{
+    static string? GetFileVersionByAssemblyAttribute(Assembly? assembly = null)
+    {
+        assembly ??= typeof(I1c5cf9e8).Assembly;
+        var v = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
+        return v;
+    }
+
+    static string? GetFileVersionByFileVersionInfo(string? processPath = null)
+    {
+        processPath ??= Environment.ProcessPath;
+        if (processPath != null)
+        {
+            var v = FileVersionInfo.GetVersionInfo(processPath).FileVersion;
+            return v;
+        }
+        return null;
+    }
+
+    static readonly Lazy<string> lazyFileVersion = new(() =>
+    {
+        try
+        {
+            var v = GetFileVersionByAssemblyAttribute();
+            if (v != null)
+            {
+                return v;
+            }
+        }
+        catch
+        {
+        }
+        try
+        {
+            var v = GetFileVersionByFileVersionInfo();
+            if (v != null)
+            {
+                return v;
+            }
+        }
+        catch
+        {
+        }
+        throw new ApplicationException("Failed to retrieve the application file version number.");
+    }, LazyThreadSafetyMode.ExecutionAndPublication);
+
+    internal static string FileVersion => lazyFileVersion.Value;
 }
