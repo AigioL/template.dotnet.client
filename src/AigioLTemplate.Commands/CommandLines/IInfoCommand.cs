@@ -1,3 +1,4 @@
+using AigioL.Common.AspNetCore.AppCenter.Models.Abstractions;
 using AigioLTemplate.Commands.CommandLines.Abstractions;
 using AigioLTemplate.Hosting;
 using System.CommandLine;
@@ -110,6 +111,41 @@ interface IInfoCommand : IConsoleCommand
 
         b.Append("MacAddressHash: ");
         b.AppendLineEx(NetAdapterHelper.GetMacAddressHash());
+
+        var allScreens = Screen.AllScreens;
+        var primaryScreen = Screen.PrimaryScreen;
+
+        b.Append("ScreenCount: ");
+        b.AppendLineEx(allScreens.Length);
+
+        b.Append("PrimaryScreenWidth: ");
+        b.AppendLineEx(primaryScreen == null ? 0 : primaryScreen.Bounds.Width);
+
+        b.Append("PrimaryScreenHeight: ");
+        b.AppendLineEx(primaryScreen == null ? 0 : primaryScreen.Bounds.Height);
+
+        b.Append("SumScreenWidth: ");
+        b.AppendLineEx(allScreens.Sum(x => x.Bounds.Width));
+
+        b.Append("SumScreenHeight: ");
+        b.AppendLineEx(allScreens.Sum(x => x.Bounds.Height));
+
+        b.Append("DeviceId: ");
+        try
+        {
+            DeviceIdModel m = new();
+            m.SetDeviceId();
+            b.Append(m.DeviceIdG.ToString("N"));
+            b.Append('_');
+            b.Append(m.DeviceIdR);
+            b.Append('_');
+            b.Append(m.DeviceIdN);
+            b.AppendLine();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine(ex.ToString());
+        }
     }
 }
 
@@ -130,4 +166,16 @@ file static class _4e9d1ea8
             return b.AppendLine(value.ToString());
         }
     }
+}
+
+file sealed partial record DeviceIdModel : IDeviceId
+{
+    /// <inheritdoc/>
+    public Guid DeviceIdG { get; set; }
+
+    /// <inheritdoc/>
+    public string? DeviceIdR { get; set; }
+
+    /// <inheritdoc/>
+    public string? DeviceIdN { get; set; }
 }
