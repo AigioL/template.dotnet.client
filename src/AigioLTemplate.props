@@ -43,11 +43,18 @@
 		<PackageReference Include="System.CommandLine" />
 		<!--<PackageReference Include="Newtonsoft.Json" />-->
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 		<PackageReference Include="System.IO.Hashing" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
 		<PackageReference Include="DotNext.Threading" />
+	</ItemGroup>
+
+	<!-- 👇 NuGet 包引用（非 WebHost 项目） -->
+	<ItemGroup Condition="!$(DefineConstants.Contains('PROJ_WEBHOST'))">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<!-- （可选）在入口点项目上声明 USE_LOGGING_CONSOLE 以在 Release 下开启控制台日志 -->
+		<PackageReference Condition="'$(Configuration)'=='Debug' OR $(DefineConstants.Contains('USE_LOGGING_CONSOLE'))" Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.Extensions.Logging.EventLog" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -58,19 +65,15 @@
 		<ProjectReference Include="$(MSBuildThisFileDirectory)..\ref\appcenter-sdk\SDK\AppCenter\Microsoft.AppCenter.WindowsDesktop\Microsoft.AppCenter.WindowsDesktop.csproj" />-->
 	</ItemGroup>
 
-	<ItemGroup>
-		<!-- （可选）在入口点项目上声明 USE_LOGGING_CONSOLE 以在 Release 下开启控制台日志 -->
-		<PackageReference Condition="'$(Configuration)'=='Debug' OR $(DefineConstants.Contains('USE_LOGGING_CONSOLE'))" Include="Microsoft.Extensions.Logging.Console" />
-	</ItemGroup>
-
 	<!-- 👇 Windows 平台配置项 -->
 	<Choose>
 		<When Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
-			<ItemGroup>
+			<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
 				<PackageReference Include="System.Drawing.Common" />
 				<PackageReference Include="System.Security.Cryptography.Pkcs" />
 				<PackageReference Include="System.Security.Cryptography.ProtectedData" />
-				<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
+			</ItemGroup>-->
+			<ItemGroup>
 				<PackageReference Include="Microsoft.Windows.CsWin32">
 					<PrivateAssets>all</PrivateAssets>
 					<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -109,7 +112,7 @@
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Constants\AigioLTemplate.ServerSdk.Constants.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Services\AigioLTemplate.ServerSdk.Services.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AigioLTemplate.ServerSdk.Models\AigioLTemplate.ServerSdk.Models.projitems" Label="Shared" />
-		
+
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Extensions\AigioLTemplate.Extensions.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Models\AigioLTemplate.Models.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Constants\AigioLTemplate.Constants.projitems" Label="Shared" />
@@ -136,7 +139,7 @@
 	<Import Project="$(MSBuildThisFileDirectory)..\ref\serversdk\src\EmbeddedResource.RSAKey.props" />
 
 	<Import Project="$(MSBuildThisFileDirectory)\..\ref\serversdk\src\GenerateAssemblyXYZAttribute.props" />
-	
+
 	<ItemGroup>
 		<Compile Include="$(MSBuildThisFileDirectory)..\ref\serversdk\src\AssemblyInfo.cs">
 			<LinkBase>Properties</LinkBase>

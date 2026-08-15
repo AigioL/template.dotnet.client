@@ -1,12 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net$(DotNet_Version)</TargetFramework>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
+	<Choose>
+		<When Condition="$([System.OperatingSystem]::IsWindows())">
+			<PropertyGroup>
+				<TargetFrameworks>net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<TargetFramework>net$(DotNet_Version)</TargetFramework>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
 
-	<PropertyGroup Condition="$([System.OperatingSystem]::IsWindows())">
-		<TargetFrameworks>net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+	<PropertyGroup>
+		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -2,6 +2,7 @@
   <Folder Name="/1.Root/">
     <File Path=".gitignore" />
     <File Path="README.md" />
+    <File Path="ref/common/src/Directory.Packages.props" />
     <File Path="ref/serversdk/src/GenerateAssemblyXYZAttribute.props" />
     <File Path="src/.editorconfig" />
     <File Path="src/AigioLTemplate.Console.props" />
@@ -9,7 +10,6 @@
     <File Path="src/AigioLTemplate.WinUI3.props" />
     <File Path="src/Directory.Build.props" />
     <File Path="src/Directory.Build.targets" />
-    <File Path="src/Directory.Packages.props" />
     <File Path="src/NativeAOT.NativeLib.props" />
     <File Path="src/TFM_NETX_ALL.props" />
     <File Path="src/Version.props" />
@@ -70,9 +70,6 @@
     <Project Path="ref/serversdk/src/AigioLTemplate.ServerSdk.UnitTest.Shared/AigioLTemplate.ServerSdk.UnitTest.Shared.shproj" Id="6daab5e5-bfc3-48de-91a0-6149bb7cc509" />
   </Folder>
   <Folder Name="/3.EntryPoint/">
-    <Project Path="src/AigioLTemplate.Mobile/AigioLTemplate.Mobile.csproj" Id="9c4d7197-34b4-4ab4-9816-3291fcd286ca">
-      <Deploy Solution="Debug|*" />
-    </Project>
     <Project Path="src/AigioLTemplate.WebHost/AigioLTemplate.WebHost.csproj" Id="eba0ddc6-7bac-49ad-82f7-5ef8ae6609f2" />
     <Project Path="src/AigioLTemplate/AigioLTemplate.csproj" Id="33d6a4f0-33ef-4173-aea1-3892d99dc0d7" />
   </Folder>

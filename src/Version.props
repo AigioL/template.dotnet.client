@@ -9,7 +9,7 @@
 	<!-- 👇 当前项目依赖的版本号配置 -->
 	<PropertyGroup>
 		<!--👇 首选 .NET 版本号 -->
-		<DotNet_Version>10.0</DotNet_Version>
+		<DotNet_Version>11.0</DotNet_Version>
 		<!--👇 Win10/11 SDK 版本，值不可小于 10.0.x -->
 		<WinSDK_Version>10.0.19041.0</WinSDK_Version>
 	</PropertyGroup>
@@ -43,6 +43,7 @@
 			<PropertyGroup>
 				<!--👇 https://github.com/dotnet/maui/blob/main/src/Templates/src/templates/maui-mobile/MauiApp.1.csproj#L43-->
 				<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+				<SupportedOSPlatformVersion Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net11.0'))">24</SupportedOSPlatformVersion>
 			</PropertyGroup>
 		</When>
 		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
