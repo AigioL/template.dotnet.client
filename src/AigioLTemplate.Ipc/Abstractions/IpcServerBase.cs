@@ -11,9 +11,12 @@ using System.Buffers.Binary;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO.Pipes;
-using System.Net;
 using System.Reactive.Disposables;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text;
+using Windows.Win32;
 
 namespace AigioLTemplate.Ipc.Abstractions;
 
@@ -50,6 +53,39 @@ abstract partial class IpcServerBase
     protected abstract void RunCore();
 
     internal void Run() => InBackground(RunCore, cancellationToken: disposedTokenSource.Token);
+
+    internal async Task WaitForConnectionAsync(CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(pipeStream);
+        await pipeStream.WaitForConnectionAsync(cancellationToken);
+
+        if (Connecting != null)
+        {
+            int? clientProcessId = null;
+#if !WINDOWS
+            if (OperatingSystem.IsWindows())
+#endif
+            {
+                if (PInvoke.GetNamedPipeClientProcessId(pipeStream.SafePipeHandle, out var clientProcessId2))
+                {
+                    clientProcessId = unchecked((int)clientProcessId2);
+                }
+            }
+            IpcConnectingEventArgs eventArgs = new(pipeName, clientProcessId);
+            Connecting(this, eventArgs);
+            if (!eventArgs.AllowConnection)
+            {
+                if (pipeStream.IsConnected)
+                {
+                    pipeStream.Disconnect();
+                }
+                pipeStream.Dispose();
+                Dispose();
+            }
+        }
+    }
+
+    public event EventHandler<IpcConnectingEventArgs>? Connecting;
 }
 
 partial class IpcServerBase : IDisposable
@@ -73,7 +109,14 @@ partial class IpcServerBase : IDisposable
                 if (disposing)
                 {
                     // 释放托管状态(托管对象)
-                    pipeStream?.Dispose();
+                    if (pipeStream != null)
+                    {
+                        if (pipeStream.IsConnected)
+                        {
+                            pipeStream.Disconnect();
+                        }
+                        pipeStream.Dispose();
+                    }
                 }
                 DisposeCore(disposing);
 

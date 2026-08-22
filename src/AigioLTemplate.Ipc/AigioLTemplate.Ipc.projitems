@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IpcServerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IpcConnectingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IpcServerInOut.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IpcServerInOutPool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IpcServerOut.cs" />

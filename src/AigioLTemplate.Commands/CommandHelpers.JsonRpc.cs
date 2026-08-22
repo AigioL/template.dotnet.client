@@ -53,15 +53,69 @@ file static class _a4865940
 
     internal static void InitJsonRpcCore(string pipeName)
     {
+        // TODO: 实现 Pool 池中单个断开或释放，在池中重建复原并等待连接
+
         pipeName = PipeHelper.GetPipeName(pipeName);
 
         IpcServerInOutPool ipcServerInOutPool = new(pipeName + (int)PipeDirection.InOut);
         AigioLTemplateHost.AddDisposable(ipcServerInOutPool);
+        ipcServerInOutPool.Connecting += IpcServerConnecting;
         ipcServerInOutPool.Run();
 
         ipcServerOutPool = new(pipeName + (int)PipeDirection.Out);
         AigioLTemplateHost.AddDisposable(ipcServerOutPool);
+        ipcServerOutPool.Connecting += IpcServerConnecting;
         ipcServerOutPool.Run();
+    }
+
+    static void IpcServerConnecting(object? sender, IpcConnectingEventArgs e)
+    {
+#if !WINDOWS
+        if (OperatingSystem.IsWindows()) // 非 Windows 平台目前无法验证
+#endif
+        {
+            if (e.ClientProcessId.HasValue)
+            {
+                Process? clientProc = null;
+                try
+                {
+                    Process.TryGetProcessById(e.ClientProcessId.Value, out clientProc);
+                }
+                catch
+                {
+                }
+                if (clientProc == null)
+                {
+                    goto Disconnect;
+                }
+                string? clientProcPath = null;
+                try
+                {
+                    clientProcPath = clientProc.MainModule?.FileName;
+                }
+                catch
+                {
+                }
+                if (string.IsNullOrEmpty(clientProcPath))
+                {
+                    goto Disconnect;
+                }
+                var v = AssemblyInfo.ValidateRustApp(clientProcPath);
+                if (!v)
+                {
+                    goto Disconnect;
+                }
+            }
+            else
+            {
+                goto Disconnect;
+            }
+            return;
+
+        Disconnect: // 验证失败，拒绝连接到命名管道服务端流
+            e.AllowConnection = false;
+            return;
+        }
     }
 }
 #endif

@@ -26,7 +26,7 @@ sealed class IpcServerOut : IpcServerBase
         try
         {
             // 在后台线程中等待连接
-            s.WaitForConnection();
+            await WaitForConnectionAsync();
 
             // 开始监听 JSON-RPC 请求
             byte[] b4 = new byte[sizeof(int)];

@@ -44,4 +44,15 @@ public sealed class AppTest : BaseUnitTest
 #pragma warning restore IL3000 // Avoid accessing Assembly file path when publishing as a single file
         Assert.True(valid);
     }
+
+    [Fact]
+    public void ValidateRustApp()
+    {
+        //var appPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "TBD", "TBD.exe");
+        //if (File.Exists(appPath))
+        //{
+        //    var valid = AssemblyInfo.ValidateRustApp(appPath);
+        //    Assert.True(valid);
+        //}
+    }
 }

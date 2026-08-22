@@ -33,11 +33,14 @@ sealed class IpcServerOutPool : IDisposable
         servers = new IpcServerOut[IpcServerBase.maxNumberOfServerInstances];
         for (int i = 0; i < servers.Length; i++)
         {
-            servers[i] = new(pipeName);
+            var it = servers[i] = new(pipeName);
+            it.Connecting += Connecting;
         }
         disposables = new(servers);
         CommandHelpers.StartNamedPipeServerStream(logger, pipeName);
     }
+
+    public event EventHandler<IpcConnectingEventArgs>? Connecting;
 
     internal void Run()
     {
