@@ -120,6 +120,7 @@ interface IInfoCommand : IConsoleCommand
         b.Append("MacAddressHash: ");
         b.AppendLineEx(NetAdapterHelper.GetMacAddressHash());
 
+#if USE_WINDOWSFORMS
         var allScreens = Screen.AllScreens;
         var primaryScreen = Screen.PrimaryScreen;
 
@@ -137,6 +138,7 @@ interface IInfoCommand : IConsoleCommand
 
         b.Append("SumScreenHeight: ");
         b.AppendLineEx(allScreens.Sum(x => x.Bounds.Height));
+#endif
 
         b.Append("DeviceId: ");
         try

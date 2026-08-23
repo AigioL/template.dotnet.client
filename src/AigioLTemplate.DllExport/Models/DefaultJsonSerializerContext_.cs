@@ -1,3 +1,4 @@
+#if !PROJ_LIBRARY
 using AigioL.Common.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,3 +17,4 @@ sealed partial class DefaultJsonSerializerContext_ : JsonSerializerContext
         Default = new DefaultJsonSerializerContext_(o);
     }
 }
+#endif

@@ -16,6 +16,10 @@ static unsafe partial class DllExport
     /// <returns></returns>
     static ApiRspCode? CheckBackendProcessHasNotExited()
     {
+#if PROJ_LIBRARY
+        // 库模式下，直接返回 null，因为没有后端进程
+        return null;
+#else
         if (backendProcessId == 0 || backendProcessName == null)
         {
             // 后端进程 ID 为空，表示未启动
@@ -43,6 +47,7 @@ static unsafe partial class DllExport
             }
         }
         return null;
+#endif
     }
 
     static readonly Lock lockBackend = new();
@@ -96,6 +101,10 @@ static unsafe partial class DllExport
         int* nativeApiRspCode,
         int killOrFindBackendProcess)
     {
+#if PROJ_LIBRARY
+        // 库模式下，直接返回 OK，因为没有后端进程
+        return (int)ApiRspCode.OK;
+#else
         lock (lockBackend)
         {
             try
@@ -206,6 +215,7 @@ static unsafe partial class DllExport
                 return (int)ApiRspCode.Exception;
             }
         }
+#endif
     }
 
     static IEnumerable<Process> GetBackendProcesses()

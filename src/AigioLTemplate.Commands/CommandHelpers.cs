@@ -16,18 +16,15 @@ static partial class CommandHelpers
 
         #region 添加业务命令
 
-        //dict.AddCommand<RegisterHotkey>();
-        //dict.AddCommand<ReplaceHotkey>();
-
-        dict.AddCommand<MainWindow>();
-        dict.AddCommand<Window>();
+        //dict.AddCommand<MainWindow>();
+        //dict.AddCommand<Window>();
 
         dict.AddCommand<VersionTracking>();
         dict.AddCommand<DeviceInfo>();
 
         dict.AddCommand<HttpClientBaseAddress>();
 
-        dict.AddCommand<AigioLTemplateFetch>();
+        dict.AddCommand<Fetch>();
         dict.AddCommand<GetDeviceId>();
 
 #if DEBUG

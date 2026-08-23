@@ -89,6 +89,8 @@ file static class MinimalHost
         ArgumentNullException.ThrowIfNull(windowsFormsSynchronizationContext);
         tcsSyncCtx.SetResult(windowsFormsSynchronizationContext);
         global::System.Windows.Forms.Application.Run(mainForm);
+#elif PROJ_LIBRARY
+        // 在库项目中，直接返回，不阻塞主线程，由调用库的应用程序自行创建 UI 窗口或消息循环
 #else
         lock (@lock)
         {
@@ -106,6 +108,8 @@ file static class MinimalHost
     {
 #if USE_WINDOWSFORMS
         global::System.Windows.Forms.Application.Exit();
+#elif PROJ_LIBRARY
+        // 在库项目中不需要执行任何操作
 #else
         lock (@lock)
         {

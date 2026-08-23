@@ -31,7 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\无请求有响应示例.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\有请求无响应示例.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Features\Samples\有请求有响应示例.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Features\WebApi\AigioLTemplateFetch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Features\WebApi\Fetch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Features\WebApi\GetDeviceId.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Features\Window.cs" />
   </ItemGroup>

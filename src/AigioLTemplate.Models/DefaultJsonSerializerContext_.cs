@@ -67,7 +67,7 @@ namespace AigioLTemplate.Models;
 [JsonSerializable(typeof(ApiRsp<VersionTrackingModel>))]
 [JsonSerializable(typeof(ApiRsp<DeviceInfoModel>))]
 [JsonSerializable(typeof(ApiRsp<HttpClientBaseAddressModel>))]
-[JsonSerializable(typeof(AigioLTemplateFetchRequestInit))]
+[JsonSerializable(typeof(FetchRequestInit))]
 [JsonSerializable(typeof(ApiRsp<DeviceIdModel>))]
 [JsonSerializable(typeof(ApiRsp<LoginOrRegisterResponse>))]
 [JsonSourceGenerationOptions(

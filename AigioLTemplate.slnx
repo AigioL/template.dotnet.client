@@ -34,6 +34,7 @@
     <Project Path="src/AigioLTemplate.Helpers.UI/AigioLTemplate.Helpers.UI.shproj" Id="6388254d-d648-4fa1-9a0b-337d5143caac" />
     <Project Path="src/AigioLTemplate.Hosting/AigioLTemplate.Hosting.shproj" Id="fa5aab6c-28d2-43d9-a7e3-3bb81ea078ba" />
     <Project Path="src/AigioLTemplate.Ipc/AigioLTemplate.Ipc.shproj" Id="7b6548f3-691c-4bd4-912e-8a5fad41881a" />
+    <Project Path="src/AigioLTemplate.Library/AigioLTemplate.Library.csproj" Id="761af156-9634-429e-9e5d-15a8daaee9b9" />
     <Project Path="src/AigioLTemplate.Models/AigioLTemplate.Models.shproj" Id="9ddda47a-b730-41e9-b76b-b316f0f9981d" />
     <Project Path="src/AigioLTemplate.System.IOPath/AigioLTemplate.System.IOPath.shproj" Id="bf5d999a-d304-4d24-9745-e17dfe997762" />
     <Project Path="src/AigioLTemplate.Windows.Win32/AigioLTemplate.Windows.Win32.shproj" Id="d9e5657a-b3ec-432d-9a14-65a11eca4460" />

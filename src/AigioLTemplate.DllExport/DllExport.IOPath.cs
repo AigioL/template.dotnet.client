@@ -46,7 +46,7 @@ static unsafe partial class DllExport
     /// <param name="value_ptr"></param>
     /// <returns></returns>
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate1")]
-    public static bool GetSpecialPath(int type, int value_len, [NotNull][In] char* value_ptr)
+    public static BOOL GetSpecialPath(int type, int value_len, [NotNull][In] char* value_ptr)
     {
         try
         {
@@ -89,3 +89,4 @@ static unsafe partial class DllExport
         return false;
     }
 }
+

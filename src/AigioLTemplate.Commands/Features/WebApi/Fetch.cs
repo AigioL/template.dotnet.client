@@ -1,18 +1,18 @@
 using AigioL.Common.Models;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using AigioLTemplate.Commands.Features.Abstractions;
 using AigioLTemplate.Models;
 using AigioLTemplate.ServerSdk.Services.Abstractions;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Text.Json;
 using ApiRspCode = AigioLTemplate.Models.ApiRspCode;
 
 namespace AigioLTemplate.Commands.Features.WebApi;
 
-using TArgs = AigioLTemplateFetchRequestInit;
-using TCommand = AigioLTemplateFetch;
+using TArgs = FetchRequestInit;
+using TCommand = Fetch;
 using TResult = JsonElement?;
 
-sealed partial class AigioLTemplateFetch
+sealed partial class Fetch
 {
     internal static async Task<ApiRsp<JsonElement?>> Invoke(TArgs args, CancellationToken cancellationToken = default)
     {
@@ -66,7 +66,7 @@ sealed partial class AigioLTemplateFetch
     }
 }
 
-partial class AigioLTemplateFetch :
+partial class Fetch :
     IV2FeatureCommand<TArgs, TResult>,
     IV2FeatureCommandFunc
 {
@@ -91,11 +91,11 @@ partial class AigioLTemplateFetch :
     }
 }
 
-sealed partial record AigioLTemplateFetchRequestInit(string BaseAddress, string Url, string Method, JsonElement? Body, bool IsSecurity, bool IsAnonymous)
+sealed partial record FetchRequestInit(string BaseAddress, string Url, string Method, JsonElement? Body, bool IsSecurity, bool IsAnonymous)
 {
 }
 
-partial record AigioLTemplateFetchRequestInit : global::System.Text.Json.Serialization.IJsonSerializerContext
+partial record FetchRequestInit : global::System.Text.Json.Serialization.IJsonSerializerContext
 {
     /// <inheritdoc/>
     static global::System.Text.Json.Serialization.JsonSerializerContext global::System.Text.Json.Serialization.IJsonSerializerContext.GetDefault() => DefaultJsonSerializerContext_.Default;

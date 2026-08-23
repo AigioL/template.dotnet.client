@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net$(DotNet_Version)-windows$(WinSDK_Version)</TargetFrameworks>
+		<RootNamespace>AigioLTemplate</RootNamespace>
+		<AssemblyName>libaigioltemplate</AssemblyName>
+		<DefineConstants>$(DefineConstants);PROJ_LIBRARY;DEL_LOGGING_CONSOLE</DefineConstants>
+	</PropertyGroup>
+
+	<!-- 👇 在 Windows 上仅开发 Windows 应用程序 -->
+	<PropertyGroup Condition="$([System.OperatingSystem]::IsWindows())">
+		<DefineConstants Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">$(DefineConstants);WINDOWS</DefineConstants>
+	</PropertyGroup>
+
+	<Import Condition="'$(Configuration)'=='Debug'" Project="$(MSBuildThisFileDirectory)..\..\ref\common\src\AigioL.Common.ProjectUtils\AigioL.Common.ProjectUtils.projitems" Label="Shared" />
+	<Import Project="..\..\ref\common\src\AigioL.Common.Models.ApiRsp\AigioL.Common.Models.ApiRsp.projitems" Label="Shared" />
+
+	<Import Project="..\NativeAOT.NativeLib.props" />
+	<Import Project="..\AigioLTemplate.props" />
+
+	<ItemGroup>
+		<Compile Include="..\AigioLTemplate.DllExport\**\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<PackageReference Include="System.Security.Cryptography.ProtectedData" />
+	</ItemGroup>
+
+</Project>

@@ -11,7 +11,7 @@ public partial record class ApiRsp
 {
     public static implicit operator ApiRsp(ApiRspCodeCustom code) => new() { Code = unchecked((uint)code) };
 
-#if !PROJ_DLLEXPORT && !NETFRAMEWORK
+#if !NETFRAMEWORK && !PROJ_DLLEXPORT
     internal static async ValueTask SerializeAsync(
         ApiRsp result,
         SerializableImplType implType,

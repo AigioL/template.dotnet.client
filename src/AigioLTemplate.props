@@ -53,7 +53,7 @@
 	<ItemGroup Condition="!$(DefineConstants.Contains('PROJ_WEBHOST'))">
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 		<!-- （可选）在入口点项目上声明 USE_LOGGING_CONSOLE 以在 Release 下开启控制台日志 -->
-		<PackageReference Condition="'$(Configuration)'=='Debug' OR $(DefineConstants.Contains('USE_LOGGING_CONSOLE'))" Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Condition="!$(DefineConstants.Contains('PROJ_LIBRARY')) AND ('$(Configuration)'=='Debug' OR $(DefineConstants.Contains('USE_LOGGING_CONSOLE')))" Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.Extensions.Logging.EventLog" />
 	</ItemGroup>
 
@@ -68,7 +68,7 @@
 	<!-- 👇 Windows 平台配置项 -->
 	<Choose>
 		<When Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $(DefineConstants.Contains('WINDOWS')))">
-			<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
+			<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 				<PackageReference Include="System.Drawing.Common" />
 				<PackageReference Include="System.Security.Cryptography.Pkcs" />
 				<PackageReference Include="System.Security.Cryptography.ProtectedData" />

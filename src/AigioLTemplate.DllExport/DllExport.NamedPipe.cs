@@ -226,6 +226,7 @@ static unsafe partial class DllExport
     }
 }
 
+//#if !PROJ_LIBRARY
 file abstract partial class IpcClientBase
 {
     protected readonly string pipeName;
@@ -537,3 +538,4 @@ file sealed class IpcClientOut : IpcClientBase
         }, cancellationToken: cancellationToken);
     }
 }
+//#endif
