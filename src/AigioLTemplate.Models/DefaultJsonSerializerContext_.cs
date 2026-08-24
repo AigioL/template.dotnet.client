@@ -52,7 +52,7 @@ namespace AigioLTemplate.Models;
 [JsonSerializable(typeof(ApiRsp<JsonElement?>))]
 [JsonSerializable(typeof(string[]))]
 [JsonSerializable(typeof(WindowPropertyChangedEventArgs))]
-[JsonSerializable(typeof(WindowCommandArgs))]
+//[JsonSerializable(typeof(WindowCommandArgs))]
 [JsonSerializable(typeof(ApiRsp<HotkeyRegistrationResult[]>))]
 //[JsonSerializable(typeof(ReplaceHotkeyArgs))]
 [JsonSerializable(typeof(ApiRsp<HotkeyRegistrationResult>))]

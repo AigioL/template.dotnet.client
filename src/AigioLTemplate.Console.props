@@ -1,11 +1,5 @@
 <Project>
 
-	<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.props" />
-
-	<ImportGroup Condition="$([System.OperatingSystem]::IsWindows()) AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-		<Import Project="$(MSBuildThisFileDirectory)WindowsForms.props" />
-	</ImportGroup>
-
 	<PropertyGroup>
 		<DefineConstants>$(DefineConstants);USE_JSON_RPC</DefineConstants>
 	</PropertyGroup>
@@ -30,5 +24,11 @@
 	<ItemGroup>
 		<!--<PackageReference Include="StreamJsonRpc" />-->
 	</ItemGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.props" />
+
+	<ImportGroup Condition="$([System.OperatingSystem]::IsWindows()) AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<Import Project="$(MSBuildThisFileDirectory)WindowsForms.props" />
+	</ImportGroup>
 
 </Project>

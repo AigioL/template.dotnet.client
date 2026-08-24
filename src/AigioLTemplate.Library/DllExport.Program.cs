@@ -54,6 +54,6 @@ static partial class DllExport
         /// <summary>
         /// 启动 UI 窗口
         /// </summary>
-        UI,
+        UI = 2,
     }
 }

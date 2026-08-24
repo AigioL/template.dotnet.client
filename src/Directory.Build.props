@@ -74,4 +74,23 @@
 	<!-- 👇 .NET 程序集强签名 -->
 	<!--<Import Condition="!$(TargetFramework.StartsWith('net35')) AND !$(TargetFramework.StartsWith('net4')) AND !$(TargetFramework.StartsWith('netstandard'))" Project="$(MSBuildThisFileDirectory)\SignAssembly.props" />-->
 
+	<!-- 👇 条件编译不同的 RID -->
+	<Choose>
+		<When Condition="$(RuntimeIdentifier.Contains('-x64'))">
+			<PropertyGroup>
+				<DefineConstants>$(DefineConstants);TARGET_X64</DefineConstants>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(RuntimeIdentifier.Contains('-x86'))">
+			<PropertyGroup>
+				<DefineConstants>$(DefineConstants);TARGET_X86</DefineConstants>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(RuntimeIdentifier.Contains('-arm64'))">
+			<PropertyGroup>
+				<DefineConstants>$(DefineConstants);TARGET_ARM64</DefineConstants>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
 </Project>

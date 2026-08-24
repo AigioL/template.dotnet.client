@@ -6,14 +6,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Text.Json;
 
 namespace AigioLTemplate;
 
 static unsafe partial class DllExport
 {
+#if !PROJ_LIBRARY
     static string GetPipeNameJsonRpc(int backendProcessId, PipeDirection pipeDirection)
         => $"aigioltemplate_{backendProcessId}_{(int)pipeDirection}";
+#endif
 
     /// <summary>
     /// 发送消息到 JSON-RPC 服务端，使用回调函数指针接收响应消息（JS => C#）
@@ -53,6 +54,9 @@ static unsafe partial class DllExport
             SendCatchMessage(taskId, commandName_len, commandName_ptr, ApiRspCode.ArgumentNullException, null, rspMessage_callback);
             return (int)ApiRspCode.OK;
         }
+#if PROJ_LIBRARY
+        return PostMessageDirectCall(taskId, commandName_len, commandName_ptr, reqMessage_len, reqMessage_ptr, rspMessage_callback);
+#else
         lock (lockBackend)
         {
             var checkBPHNE = CheckBackendProcessHasNotExited();
@@ -130,6 +134,7 @@ static unsafe partial class DllExport
             //    }
             //}
         }
+#endif
     }
 
     /// <summary>
@@ -163,6 +168,9 @@ static unsafe partial class DllExport
             // 禁止传入空指针
             return (int)ApiRspCode.ArgumentNullException;
         }
+#if PROJ_LIBRARY
+        return SetOnMessageReceivedListenerDirectCall(onMessageReceivedListener);
+#else
         lock (lockBackend)
         {
             var checkBPHNE = CheckBackendProcessHasNotExited();
@@ -183,50 +191,51 @@ static unsafe partial class DllExport
             }
         }
         return (int)ApiRspCode.OK;
+#endif
     }
 
-    /// <summary>
-    /// 调用 WebApi 的 <see cref="HttpClient.Send(HttpRequestMessage)"/> 方法，使用回调函数指针接收响应消息（JS => C#）
-    /// </summary>
-    /// <param name="taskId"></param>
-    /// <param name="methodName_len"></param>
-    /// <param name="methodName_ptr"></param>
-    /// <param name="reqMessage_len"></param>
-    /// <param name="reqMessage_ptr"></param>
-    /// <param name="rspMessage_callback"></param>
-    /// <returns></returns>
-    [UnmanagedCallersOnly(EntryPoint = "aigioltemplate2")]
-    public static int Send(int taskId, int methodName_len, [NotNull] char* methodName_ptr, int reqMessage_len, byte* reqMessage_ptr, [NotNull] delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
-    {
-        try
-        {
-            MethodStartLog();
-            var r = SendCore(taskId, methodName_len, methodName_ptr, reqMessage_len, reqMessage_ptr, rspMessage_callback);
-            return r;
-        }
-        catch (Exception ex)
-        {
-            MethodExceptionLog(ex);
-            throw;
-        }
-        finally
-        {
-            MethodEndLog();
-        }
-    }
+    ///// <summary>
+    ///// 调用 WebApi 的 <see cref="HttpClient.Send(HttpRequestMessage)"/> 方法，使用回调函数指针接收响应消息（JS => C#）
+    ///// </summary>
+    ///// <param name="taskId"></param>
+    ///// <param name="methodName_len"></param>
+    ///// <param name="methodName_ptr"></param>
+    ///// <param name="reqMessage_len"></param>
+    ///// <param name="reqMessage_ptr"></param>
+    ///// <param name="rspMessage_callback"></param>
+    ///// <returns></returns>
+    //[UnmanagedCallersOnly(EntryPoint = "aigioltemplate2")]
+    //public static int Send(int taskId, int methodName_len, [NotNull] char* methodName_ptr, int reqMessage_len, byte* reqMessage_ptr, [NotNull] delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
+    //{
+    //    try
+    //    {
+    //        MethodStartLog();
+    //        var r = SendCore(taskId, methodName_len, methodName_ptr, reqMessage_len, reqMessage_ptr, rspMessage_callback);
+    //        return r;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        MethodExceptionLog(ex);
+    //        throw;
+    //    }
+    //    finally
+    //    {
+    //        MethodEndLog();
+    //    }
+    //}
 
-    static int SendCore(int taskId, int methodName_len, char* methodName_ptr, int reqMessage_len, byte* reqMessage_ptr, delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
-    {
-        if (methodName_len <= 0 || methodName_ptr == default || rspMessage_callback == default)
-        {
-            // 禁止传入空指针
-            return (int)ApiRspCode.ArgumentNullException;
-        }
-        return 0;
-    }
+    //static int SendCore(int taskId, int methodName_len, char* methodName_ptr, int reqMessage_len, byte* reqMessage_ptr, delegate* unmanaged<int, int, byte*, void> rspMessage_callback)
+    //{
+    //    if (methodName_len <= 0 || methodName_ptr == default || rspMessage_callback == default)
+    //    {
+    //        // 禁止传入空指针
+    //        return (int)ApiRspCode.ArgumentNullException;
+    //    }
+    //    return 0;
+    //}
 }
 
-//#if !PROJ_LIBRARY
+#if !PROJ_LIBRARY
 file abstract partial class IpcClientBase
 {
     protected readonly string pipeName;
@@ -538,4 +547,4 @@ file sealed class IpcClientOut : IpcClientBase
         }, cancellationToken: cancellationToken);
     }
 }
-//#endif
+#endif

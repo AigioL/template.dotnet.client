@@ -50,7 +50,9 @@ static unsafe partial class DllExport
 #endif
     }
 
+#if !PROJ_LIBRARY
     static readonly Lock lockBackend = new();
+#endif
 
     /// <summary>
     /// 以管理员权限启动后端进程

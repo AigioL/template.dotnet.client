@@ -119,7 +119,7 @@
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Hosting\AigioLTemplate.Hosting.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Helpers.UI\AigioLTemplate.Helpers.UI.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Commands\AigioLTemplate.Commands.projitems" Label="Shared" />
-		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.Ipc\AigioLTemplate.Ipc.projitems" Label="Shared" />
+		<Import Condition="$(DefineConstants.Contains('USE_JSON_RPC'))" Project="$(MSBuildThisFileDirectory)AigioLTemplate.Ipc\AigioLTemplate.Ipc.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.System.IOPath\AigioLTemplate.System.IOPath.projitems" Label="Shared" />
 		<Import Project="$(MSBuildThisFileDirectory)AigioLTemplate.AppCenter\AigioLTemplate.AppCenter.projitems" Label="Shared" />
 	</ImportGroup>

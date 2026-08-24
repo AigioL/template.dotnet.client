@@ -9,19 +9,16 @@
 		<When Condition="$(RuntimeIdentifier.Contains('-x64'))">
 			<PropertyGroup>
 				<AssemblyName>$(AssemblyName)1</AssemblyName>
-				<DefineConstants>$(DefineConstants);TARGET_X64</DefineConstants>
 			</PropertyGroup>
 		</When>
 		<When Condition="$(RuntimeIdentifier.Contains('-x86'))">
 			<PropertyGroup>
 				<AssemblyName>$(AssemblyName)0</AssemblyName>
-				<DefineConstants>$(DefineConstants);TARGET_X86</DefineConstants>
 			</PropertyGroup>
 		</When>
 		<When Condition="$(RuntimeIdentifier.Contains('-arm64'))">
 			<PropertyGroup>
 				<AssemblyName>$(AssemblyName)3</AssemblyName>
-				<DefineConstants>$(DefineConstants);TARGET_ARM64</DefineConstants>
 			</PropertyGroup>
 		</When>
 	</Choose>

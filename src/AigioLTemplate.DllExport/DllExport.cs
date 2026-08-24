@@ -65,7 +65,7 @@ public static unsafe partial class DllExport
         ApiRsp rsp = new()
         {
             Code = (uint)code,
-            Message = ex?.Message,
+            Message = ex?.ToString(),
             Url = new string(commandName_ptr, 0, commandName_len),
         };
         var rspMessage = JsonSerializer.SerializeToUtf8Bytes(rsp, DefaultJsonSerializerContext_.Default.ApiRsp);

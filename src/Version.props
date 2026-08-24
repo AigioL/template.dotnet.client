@@ -3,7 +3,7 @@
 	<!-- 👇 当前项目的版本号配置 -->
 	<PropertyGroup>
 		<!--(yyyy-2024||A).B.(yyyy-2024)MMdd.1hhC-->
-		<Version>1.0.20729.11300</Version>
+		<Version>1.0.20824.11700</Version>
 	</PropertyGroup>
 
 	<!-- 👇 当前项目依赖的版本号配置 -->
