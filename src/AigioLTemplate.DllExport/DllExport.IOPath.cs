@@ -46,13 +46,13 @@ static unsafe partial class DllExport
     /// <param name="value_ptr"></param>
     /// <returns></returns>
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate1")]
-    public static BOOL GetSpecialPath(int type, int value_len, [NotNull][In] char* value_ptr)
+    public static int GetSpecialPath(int type, int value_len, [NotNull][In] char* value_ptr)
     {
         try
         {
             MethodStartLog();
             var r = GetSpecialPathCore(type, value_len, value_ptr);
-            return r;
+            return r.ToInt32();
         }
         catch (Exception ex)
         {

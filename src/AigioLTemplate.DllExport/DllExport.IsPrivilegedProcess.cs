@@ -8,13 +8,13 @@ static partial class DllExport
     /// 返回当前进程是否为管理员权限运行
     /// </summary>
     [UnmanagedCallersOnly(EntryPoint = "aigioltemplate7")]
-    public static BOOL IsPrivilegedProcess()
+    public static int IsPrivilegedProcess()
     {
         try
         {
             MethodStartLog();
             var r = Environment.IsPrivilegedProcess;
-            return r;
+            return r.ToInt32();
         }
         catch (Exception ex)
         {
