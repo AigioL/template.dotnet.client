@@ -35,6 +35,12 @@ static unsafe partial class DllExport
         1 => IOPath.AppDataDirectory.Length,
         2 => IOPath.CacheDirectory.Length,
         3 => IOPath.GetAigioLTemplateLibFilePath(null).Length,
+        4 => // 通过类型 4 返回当前 sdk 本机 dll 是库模式还是后端 exe 多进程模式，1 为库模式，2 为后端 exe 多进程模式
+#if PROJ_LIBRARY
+            1,
+#else
+            2,
+#endif
         _ => 0,
     };
 
